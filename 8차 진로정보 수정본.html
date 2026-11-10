@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NEXORA — 더 넓게, 더 깊게.</title>
+<meta name="description" content="NEXORA. 직업, 학과, 대학, 활동 정보 통합 검색.">
+<meta property="og:title" content="NEXORA">
+<meta property="og:description" content="더 넓게, 더 깊게.">
+<meta name="theme-color" content="#0e2354">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect width='22' height='22' rx='4' fill='%230e2354'/%3E%3Cpath d='M6 16V6l10 10V6' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--n:#0e2354;--b:#1f4fd8;--bl:#eef2fc;--g:#f4f5f7;--line:#e2e5ea;--sub:#5b6575;--ink:#151b28;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:#fff;color:var(--ink);font-family:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.6;word-break:keep-all;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer;color:inherit}a{color:inherit}
+:focus-visible{outline:2px solid var(--b);outline-offset:2px}
+.top{border-bottom:1px solid var(--line);position:sticky;top:0;background:#fffffff2;z-index:5}
+.nav{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:2px;padding:0 16px;height:56px;overflow-x:auto;white-space:nowrap}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--n);text-decoration:none;margin-right:18px;letter-spacing:-.02em}
+.nav a.m{padding:15px 11px;text-decoration:none;font-size:14.5px;color:var(--sub)}.nav a.m:hover{color:var(--n)}
+.nav a.on{color:var(--n);font-weight:500;box-shadow:inset 0 -2px 0 var(--n)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px 72px}
+.hero{padding:64px 0 8px;max-width:760px}
+.hero h1{font-size:clamp(34px,6.5vw,60px);line-height:1.12;margin:0 0 14px;color:var(--n);letter-spacing:-.035em}
+.hero p{margin:0 0 28px;color:var(--sub);font-size:17px}
+.sb{position:relative}
+.sb form{display:flex;border:1px solid var(--n);border-radius:4px;background:#fff}.sb form:focus-within{outline:2px solid var(--b);outline-offset:2px}
+.sb input{flex:1;min-width:0;border:0;font:inherit;font-size:17px;padding:15px 16px;outline:0;background:none}
+.sb .go{border:0;background:var(--n);color:#fff;padding:0 24px;font-weight:500;border-radius:0 3px 3px 0}
+.dd{position:absolute;left:0;right:0;top:100%;margin-top:4px;background:#fff;border:1px solid var(--n);border-radius:4px;z-index:6;max-height:60vh;overflow:auto}
+.sh{padding:8px 14px 2px;font-size:12px;color:var(--sub);display:flex;justify-content:space-between}.sh i{font-style:normal;background:var(--g);padding:0 6px;border-radius:3px}
+.sh button{border:0;background:none;color:var(--b);font-size:12px}
+.si{padding:8px 14px;display:flex;justify-content:space-between;cursor:pointer}.si:hover,.si.sel{background:var(--bl)}.si small{color:var(--sub)}.si b{color:var(--sub);padding:0 4px}
+.kwrow{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:14px;font-size:14px;color:var(--sub)}
+.kwrow a{text-decoration:none;color:var(--n);border-bottom:1px solid var(--line)}.kwrow a:hover{border-color:var(--n)}
+.lab{font-size:12px;letter-spacing:.03em;color:var(--sub);margin:0 0 8px;font-weight:500}
+.sec{margin-top:56px;animation:in .45s ease both}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.sec{animation:none}}
+.sh2{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid var(--n);padding-top:12px;margin-bottom:6px}
+.sh2 h2{margin:0;font-size:20px;color:var(--n);letter-spacing:-.02em}.sh2 small{color:var(--sub);font-size:12px}
+.feat{display:grid;grid-template-columns:1.7fr 1fr;border:1px solid var(--line)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media (max-width:760px){.feat,.two{grid-template-columns:1fr}.two{gap:48px}.hero{padding-top:40px}}
+.fm{padding:28px}.fm .dday{font-size:clamp(48px,9vw,84px);font-weight:700;color:var(--n);line-height:1;letter-spacing:-.04em}
+.fm h3{margin:10px 0 2px;font-size:22px;color:var(--n)}
+.fs{background:var(--g);padding:20px 22px}
+.row{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);text-decoration:none;align-items:flex-start}
+.row:hover b{color:var(--b)}.row b{font-weight:500;display:block}.row small{display:block;color:var(--sub);font-size:13px;line-height:1.45}
+.stt{font-size:12px;font-weight:500;padding:1px 8px;border-radius:3px;white-space:nowrap;border:1px solid;display:inline-block}
+.stt.g{color:#0a6b3d;border-color:#b9e0cb;background:#f1faf5}.stt.u{color:#a12a1b;border-color:#f0c3bc;background:#fdf3f1}
+.stt.p{color:#8a5a00;border-color:#efd9a8;background:#fffaf0}.stt.x{color:#6b7280;border-color:#d8dbe0;background:var(--g)}.stt.s{color:var(--n);border-color:#c8d3f0;background:var(--bl)}
+.notice{background:var(--g);padding:16px 18px;font-size:14px;color:var(--sub);margin-top:8px}
+main h1{color:var(--n);letter-spacing:-.03em}
+main h2{font-size:17px;margin:28px 0 8px;color:var(--n)}main h2 i{font-style:normal;font-size:12px;background:var(--g);padding:1px 8px;border-radius:3px;margin-left:6px;font-weight:400;color:var(--sub)}
+.chip{border:1px solid var(--line);background:#fff;border-radius:4px;padding:5px 12px;font-size:14px;text-decoration:none;display:inline-block}
+.chip.on{background:var(--n);color:#fff;border-color:var(--n)}
+.ex{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin:12px 0;padding-bottom:4px;white-space:nowrap}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px;font-size:14px}
+select{font:inherit;font-size:14px;padding:6px 8px;border:1px solid var(--line);border-radius:4px;background:#fff}
+.res{border-bottom:1px solid var(--line);padding:16px 0}
+.res h3{margin:0 0 2px;font-size:18px}.res h3 a{color:var(--n);text-decoration:none}.res h3 a:hover{color:var(--b);text-decoration:underline}
+.meta{font-size:13px;color:var(--sub)}.res p{margin:4px 0}
+.bd{font-size:12px;color:var(--n);background:var(--bl);padding:1px 8px;border-radius:3px;margin-right:4px;display:inline-block}.bd.o{background:none;border:1px solid var(--line);color:var(--sub)}
+.btn{display:inline-block;border:1px solid var(--n);background:var(--n);color:#fff;border-radius:4px;padding:8px 16px;text-decoration:none;font-size:14px;margin:6px 8px 0 0}.btn.s{background:#fff;color:var(--n)}
+.st{border:0;background:none;font-size:22px;line-height:1;color:#9aa6b8}.st.on{color:#c98f00}
+.kw{font-size:12px;color:var(--sub)}.kw span{margin-right:8px}
+.empty{background:var(--g);padding:18px}
+.box{border:1px solid var(--line);border-radius:4px;padding:4px 14px}.box a.l{display:block;padding:8px 0;text-decoration:none;border-bottom:1px solid var(--line)}.box a.l:last-child{border:0}.box a.l:hover{color:var(--b)}
+.note{font-size:13px;color:var(--sub);margin-top:48px;border-top:1px solid var(--line);padding-top:12px}
+.dh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.hero{padding:72px 0 8px;max-width:820px}
+.hero h1{margin:0 0 14px;line-height:1.02}
+.hero .bn{display:block;font-size:clamp(48px,12vw,100px);font-weight:700;color:var(--n);letter-spacing:-.01em}
+.hero .sl{display:block;font-size:clamp(24px,5.2vw,46px);font-weight:500;color:var(--b);letter-spacing:-.03em;margin-top:6px}
+.hero .cl{margin:0 0 28px;color:var(--sub);font-size:15px;letter-spacing:.04em}
+.logo .wm,.wm{letter-spacing:.14em;font-weight:700}
+.tg{display:none;font-weight:400;color:var(--sub);font-size:12px;letter-spacing:0;margin-left:4px}
+@media (min-width:900px){.tg{display:inline}}
+.bd.w{background:#fffaf0;color:#8a5a00;border:1px solid #efd9a8}
+.ft{border-top:1px solid var(--line);background:var(--g);margin-top:72px}
+.fi{max-width:1080px;margin:0 auto;padding:28px 16px;display:grid;grid-template-columns:1.3fr 1fr 1fr 1.6fr;gap:24px;font-size:13px;color:var(--sub)}
+.fi .wm{color:var(--n);font-size:18px}
+@media (max-width:760px){.fi{grid-template-columns:1fr}.hero{padding-top:40px}}
+button,.btn,select{min-height:40px}.chip{display:inline-flex;align-items:center;min-height:36px}
+.cv{aspect-ratio:16/6;min-height:120px;border-radius:4px;color:#fff;padding:18px 22px;display:flex;flex-direction:column;justify-content:flex-end;margin:12px 0;position:relative;overflow:hidden;background:linear-gradient(135deg,#0e2354,#2a4da0)}
+.cv.g1{background:linear-gradient(135deg,#12306e,#1f4fd8)}.cv.g2{background:linear-gradient(135deg,#17335f,#3b6fd8)}
+.cv:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,#ffffff0d 0 2px,transparent 2px 18px)}
+.cv>*{position:relative}.cv b{font-size:clamp(22px,5vw,38px);letter-spacing:-.02em;line-height:1.15}.cv small{opacity:.8;font-size:12px;margin-top:4px}
+.cv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.why{color:var(--b)!important}
+ul.pl{margin:0;padding-left:18px}.pl li{margin:5px 0}
+.cmpw{overflow-x:auto}table.cmp{border-collapse:collapse;min-width:560px;width:100%;font-size:14px}.cmp th,.cmp td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+.cmp th{background:var(--g);font-weight:500}.cmp td:first-child,.cmp th:first-child{width:104px;color:var(--sub);background:var(--g)}
+.ulist a.l small{color:var(--sub)}
+.stats{display:flex;flex-wrap:wrap;gap:10px 36px;margin-top:26px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--sub)}.stats b{display:block;font-size:24px;color:var(--n);letter-spacing:-.02em;line-height:1.2}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.tile{display:flex;flex-direction:column;justify-content:flex-end;min-height:108px;padding:14px 16px;border-radius:4px;color:#fff;text-decoration:none;background:linear-gradient(135deg,#0e2354,#2a4da0);transition:transform .2s}
+.tile.g1{background:linear-gradient(135deg,#12306e,#1f4fd8)}.tile.g2{background:linear-gradient(135deg,#17335f,#3b6fd8)}.tile:hover{transform:translateY(-2px)}.tile b{font-size:17px}.tile small{opacity:.8;line-height:1.4}
+@media (prefers-reduced-motion:reduce){.tile{transition:none}}
+.bc{font-size:13px;color:var(--sub);margin-top:24px}.bc a{text-decoration:none}.bc a:hover{color:var(--b)}
+.dl{display:grid;grid-template-columns:170px 1fr;gap:40px;align-items:start;margin-top:4px}.dm{min-width:0}.dm h2{scroll-margin-top:72px}
+.toc{position:sticky;top:76px;font-size:14px}.toc p{margin:0 0 6px;font-size:12px;color:var(--sub)}.toc button{display:block;border:0;background:none;padding:5px 0;color:var(--sub);text-align:left;min-height:0}.toc button:hover{color:var(--n)}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);margin:16px 0}.facts div{padding:12px 14px;border-right:1px solid var(--line);font-size:14px}.facts div:last-child{border:0}.facts small{display:block;color:var(--sub);font-size:12px}
+@media(max-width:900px){.dl{grid-template-columns:1fr;gap:0}.toc{position:static;display:flex;gap:16px;overflow-x:auto;white-space:nowrap;border-bottom:1px solid var(--line);margin-bottom:4px}.toc p{display:none}.toc button{padding:10px 0}}
+@media(max-width:760px){.tiles{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.facts{grid-template-columns:1fr}.facts div{border-right:0;border-bottom:1px solid var(--line)}}
+.sk{height:14px;background:var(--g);margin:14px 0;border-radius:2px;animation:pu .9s ease-in-out infinite alternate}@keyframes pu{to{opacity:.4}}
+#up{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:44px;height:44px;border:1px solid var(--line);background:#fff;border-radius:4px;font-size:18px;color:var(--n);z-index:4}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:#fff;padding:8px 12px;z-index:10}
+@media print{.top,.ft,#up,.toc,.sb,.skip{display:none}}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);margin-top:10px}
+.steps a{padding:16px;border-right:1px solid var(--line);text-decoration:none;display:block}.steps a:last-child{border:0}.steps a:hover{background:var(--bl)}
+.steps small{color:var(--b);font-weight:700}.steps b{display:block;font-size:17px;color:var(--n)}.steps span{font-size:13px;color:var(--sub)}
+@media(max-width:760px){.steps{grid-template-columns:repeat(2,1fr)}.steps a:nth-child(2){border-right:0}.steps a:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.tabbar{display:none}
+@media(max-width:760px){.tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}.tabbar a{text-align:center;padding:13px 0;font-size:12.5px;text-decoration:none;color:var(--sub)}.tabbar a.on{color:var(--n);font-weight:700;box-shadow:inset 0 2px 0 var(--n)}.ft{margin-bottom:54px}#up{bottom:calc(68px + env(safe-area-inset-bottom,0px))}}
+@media print{.tabbar{display:none}}
+.fl{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--sub)}
+.fl input,.fl select,textarea{font:inherit;font-size:16px;padding:10px 12px;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink);width:100%}
+textarea{min-height:96px;resize:vertical}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:8px 0}
+.btn.big{padding:14px 24px;font-size:16px}
+.dash{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px}.dash .box{padding:14px 16px}
+@media(max-width:760px){.dash{grid-template-columns:1fr}}
+.pgb{height:6px;background:var(--g);border-radius:2px;overflow:hidden}.pgb i{display:block;height:100%;background:var(--n)}
+.ck{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}.ck input{margin-top:5px;width:18px;height:18px}
+.ck b{font-weight:500}.ck small{display:block;color:var(--sub);font-size:13px;line-height:1.5}
+.lg{max-height:56px;max-width:160px;object-fit:contain;display:block;margin:12px 0 0}
+.gl dt{font-weight:500;color:var(--n);margin-top:14px}.gl dd{margin:2px 0 0;color:var(--ink)}
+.warn{background:#fffaf0;border:1px solid #efd9a8;color:#8a5a00;padding:12px 14px;font-size:14px;margin:10px 0}
+.pyr{display:flex;flex-direction:column;align-items:center;gap:6px;margin:14px 0}
+.lv{width:var(--w);border:1px solid var(--line);border-left:4px solid var(--c);background:#fff;padding:10px 12px}
+.lh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px;font-size:14px}.lh b{color:var(--c);font-size:16px}.lh small{color:var(--sub)}.lh a{font-size:13px;color:var(--b);text-decoration:none;white-space:nowrap}
+.lt{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.pt{display:flex;flex-direction:column;gap:4px;width:116px;text-decoration:none;text-align:center}.pt b{font-size:13px;font-weight:500;color:var(--ink)}.pt:hover b{color:var(--b)}
+.lgb{background:#fff;border:1px solid var(--line);border-radius:4px;display:flex;align-items:center;justify-content:center;padding:6px;overflow:hidden}
+.lgb img{max-width:100%;max-height:100%;object-fit:contain}.lgb span{font-size:13px;font-weight:700;color:var(--n);text-align:center;letter-spacing:-.02em;line-height:1.3}
+@media(max-width:760px){.lv{width:var(--wm);padding:8px}.pt{width:calc(50% - 4px)}}
+.uc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}.uc{border:1px solid var(--line);border-radius:4px;padding:14px;display:flex;flex-direction:column;gap:6px}.uc h3{margin:6px 0 0;font-size:17px}.uc h3 a{text-decoration:none;color:var(--n)}.uc p{margin:4px 0}
+.cmp td .lgb{margin-bottom:4px;width:96px}
+</style>
+</head>
+<body>
+<a class="skip" href="#/" data-skip>본문 바로가기</a><noscript><p style="padding:24px">NEXORA는 JavaScript가 필요합니다.</p></noscript>
+<div class="top"><nav class="nav" id="nav" aria-label="주 메뉴"></nav></div>
+<main class="wrap" id="app" aria-live="polite" tabindex="-1"></main>
+<footer class="ft" id="ft"></footer>
+<nav class="tabbar" id="tb" aria-label="하단 메뉴"></nav>
+<button id="up" hidden aria-label="맨 위로">↑</button>
+<script>
+const UPD="2026-11-04",$=s=>document.querySelector(s),enc=encodeURIComponent;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ls={get(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const D=[],CU="https://www.career.go.kr",W24="https://www.work24.go.kr";
+const A=(t,n,f,d,s,u,k,r=[],c="")=>D.push({t,n,f,d,s,u,k:k.split(","),r,c});
+/* 학과 */
+A("학과","행정학과","사회","정부와 공공기관이 정책을 만들고 집행하는 과정, 조직 운영과 공공서비스를 배우는 학과.","커리어넷",CU,"행정,공무원,정책,공공",["공무원","법학과","경제학과"]);
+A("학과","경영학과","사회","기업의 운영, 마케팅, 회계, 인사 등을 배우는 학과.","커리어넷",CU,"경영,마케팅,회계,창업",["마케터","회계사"]);
+A("학과","경제학과","사회","시장과 금융, 자원 배분, 정책 효과를 분석하는 방법을 배우는 학과.","커리어넷",CU,"경제,금융,통계",["데이터 분석가","공무원"]);
+A("학과","법학과","사회","법의 원리와 제도를 배우고 법적 문제를 해결하는 방법을 익히는 학과.","커리어넷",CU,"법,법률",["변호사","공무원"]);
+A("학과","심리학과","사회","인간의 마음과 행동을 과학적으로 연구하는 학과.","커리어넷",CU,"심리,상담",["심리상담사"]);
+A("학과","사회복지학과","사회","복지 제도와 지역사회 지원, 상담 방법을 배우는 학과.","커리어넷",CU,"복지,돌봄",["사회복지사"]);
+A("학과","컴퓨터공학과","공학","프로그래밍, 알고리즘, 시스템, 데이터 처리를 배우는 학과.","커리어넷",CU,"컴퓨터,코딩,소프트웨어,AI",["소프트웨어 개발자","데이터 분석가"]);
+A("학과","간호학과","의약","환자 돌봄과 건강 관리에 필요한 지식과 실습을 배우는 학과.","커리어넷",CU,"간호,의료",["간호사"]);
+A("학과","교육학과","교육","교육의 원리와 학습, 교육과정, 교육행정을 배우는 학과.","커리어넷",CU,"교육,교사",["교사"]);
+A("학과","정치외교학과","사회","정치 제도와 국제 관계를 분석하고 공공 문제를 이해하는 학과.","커리어넷",CU,"정치,외교,국제관계,선거",["공무원"]);
+A("학과","회계학과","사회","기업의 재무 정보를 측정하고 보고하는 방법을 배우는 학과.","커리어넷",CU,"회계,재무제표,세무,감사",["회계사"]);
+A("학과","무역학과","사회","국제 거래와 무역 실무, 글로벌 경영을 배우는 학과.","커리어넷",CU,"무역,국제통상,수출입,글로벌",[]);
+A("학과","통계학과","자연","자료 수집과 분석 방법을 배워 불확실한 상황에서 근거를 만드는 학과.","커리어넷",CU,"통계,데이터,확률",["데이터 분석가"]);
+A("학과","신문방송학과","사회","미디어와 커뮤니케이션을 연구하고 콘텐츠를 기획·제작하는 학과.","커리어넷",CU,"미디어,방송,언론,콘텐츠,커뮤니케이션",["기자", "마케터"]);
+A("학과","경찰행정학과","사회","치안과 공공 안전의 이론, 법과 행정을 배우는 학과.","커리어넷",CU,"경찰,치안,범죄,수사",["경찰공무원", "공무원"]);
+A("학과","전자공학과","공학","전자 회로와 반도체, 통신, 신호처리를 배우는 학과.","커리어넷",CU,"전자,반도체,회로,통신",[]);
+A("학과","소프트웨어학과","공학","소프트웨어 개발 방법과 공학 원리를 실무 중심으로 배우는 학과.","커리어넷",CU,"소프트웨어,코딩,앱,개발",["소프트웨어 개발자"]);
+A("학과","인공지능학과","공학","기계학습과 데이터 처리로 지능형 시스템을 만드는 방법을 배우는 학과.","커리어넷",CU,"인공지능,AI,머신러닝,딥러닝",["데이터 분석가", "소프트웨어 개발자"]);
+A("학과","아동가족학과","사회","아동 발달과 가족, 보육 환경을 연구하는 학과.","커리어넷",CU,"아동,가족,보육,발달",[]);
+A("학과","유아교육학과","교육","영유아 발달과 교육 방법을 배워 유아교육 현장의 교사를 기르는 학과.","커리어넷",CU,"유아,유치원,교육,놀이",["교사"]);
+A("학과","보건행정학과","의약","보건의료 제도와 병원·보건기관의 운영·관리를 배우는 학과.","커리어넷",CU,"보건,병원행정,의료,건강보험",[]);
+A("학과","응급구조학과","의약","응급 상황에서 환자를 평가하고 처치·이송하는 방법을 배우는 학과.","커리어넷",CU,"응급,구조,119,응급처치",["응급구조사"]);
+A("학과","물리치료학과","의약","근골격과 신경계 질환의 재활 치료 방법을 배우는 학과.","커리어넷",CU,"물리치료,재활,운동치료",["물리치료사"]);
+/* 직업 */
+A("직업","공무원","사회","국가나 지방자치단체에서 행정 업무와 공공서비스를 담당하는 직업.","커리어넷",CU,"공무원,행정,공공",["행정학과","법학과"],"공개경쟁 채용시험 경로가 일반적. 일정과 요건은 해당 기관 공고 확인.");
+A("직업","회계사","사회","기업의 재무 정보를 검토하고 회계·세무 업무를 수행하는 직업.","커리어넷",CU,"회계,세무,재무",["경영학과"],"공인회계사 자격시험 통과 필요. 요건은 공식 안내 확인.");
+A("직업","변호사","사회","법률 문제를 상담하고 소송과 법률 서비스를 제공하는 직업.","커리어넷",CU,"법률,소송",["법학과"],"변호사시험 통과 필요. 응시 요건은 공식 안내 확인.");
+A("직업","소프트웨어 개발자","공학","프로그램과 서비스를 설계하고 개발하는 직업.","커리어넷",CU,"개발,코딩,IT",["컴퓨터공학과"],"필수 면허 없음. 관련 자격증과 포트폴리오 활용.");
+A("직업","데이터 분석가","공학","데이터를 모아 분석해 의사결정에 필요한 근거를 만드는 직업.","커리어넷",CU,"데이터,통계,분석",["컴퓨터공학과","경제학과"]);
+A("직업","심리상담사","사회","마음의 어려움을 겪는 사람을 상담으로 돕는 직업.","커리어넷",CU,"상담,심리",["심리학과"],"관련 자격 다양. 커리어넷 확인.");
+A("직업","간호사","의약","환자의 치료와 회복을 돕고 건강을 관리하는 직업.","커리어넷",CU,"간호,의료,병원",["간호학과"],"간호사 면허(국가시험) 필요.");
+A("직업","교사","교육","학생을 가르치고 생활과 진로를 지도하는 직업.","커리어넷",CU,"교육,선생님,교직",["교육학과"],"교원 자격과 임용 절차 필요. 세부 내용은 공식 안내 확인.");
+A("직업","사회복지사","사회","도움이 필요한 개인과 가족, 지역사회를 지원하는 직업.","커리어넷",CU,"복지,돌봄,상담",["사회복지학과"],"사회복지사 자격 필요. 급수와 요건은 공식 안내 확인.");
+A("직업","마케터","사회","상품과 서비스를 알리고 고객과 연결하는 직업.","커리어넷",CU,"마케팅,광고,홍보",["경영학과"]);
+A("직업","경찰공무원","사회","범죄 예방과 수사, 교통·생활 안전 등 치안 업무를 맡는 직업.","커리어넷",CU,"경찰,치안,수사,공무원",["경찰행정학과","법학과"],"경찰공무원 채용시험 합격 후 임용. 응시 요건과 일정은 공식 공고 확인.");
+A("직업","기자","사회","취재와 조사로 사실을 확인해 기사와 영상 콘텐츠로 전달하는 직업.","커리어넷",CU,"기자,언론,취재,뉴스",["신문방송학과"],"필수 자격 없음. 언론사별 채용 절차 확인.");
+A("직업","물리치료사","의약","재활 치료와 운동으로 환자의 신체 기능 회복을 돕는 직업.","커리어넷",CU,"물리치료,재활,의료",["물리치료학과"],"물리치료사 면허(국가시험) 필요.");
+A("직업","응급구조사","의약","응급 현장에서 환자를 평가하고 응급처치와 이송을 담당하는 직업.","커리어넷",CU,"응급,구조,119,의료",["응급구조학과"],"응급구조사 자격(국가자격) 필요.");
+/* 체험·자료·멘토링 */
+A("체험","꿈길","","학교 밖 진로체험 프로그램을 검색하고 신청하는 서비스.","꿈길","https://www.ggoomgil.go.kr","진로체험,체험,신청,고등학생,중학생");
+A("체험","YEEP 창업체험","","창업 과정을 온라인으로 가상 체험하는 서비스.","YEEP","https://yeep.go.kr","창업,체험,경제");
+A("자료","커리어넷 진로심리검사","","흥미·적성·가치관을 알아보는 검사를 제공하는 서비스.","커리어넷",CU,"검사,심리검사,적성,흥미,진로");
+A("자료","한국직업방송","","직업 소개 영상으로 일의 모습을 미리 보는 방송.","한국직업방송","https://www.worktv.or.kr","직업,영상,방송");
+A("자료","고용24 직업정보","","직업정보와 취업·훈련 정보를 확인하는 고용 공식 서비스.","고용24(워크넷)",W24,"직업,취업,고용,워크넷");
+A("자료","대학알리미","","대학별 정보공시와 학과 정보를 비교하는 공식 서비스.","대학알리미","https://www.academyinfo.go.kr","대학,정보공시,학과,비교");
+A("자료","대입정보포털 어디가","","대학별 입시 정보와 전형 안내, 대입 상담을 제공하는 포털.","어디가","https://www.adiga.kr","입시,전형,대입,대학,학과");
+A("자료","교육부","","교육 정책과 공지, 학교 관련 안내를 제공하는 기관.","교육부","https://www.moe.go.kr","교육,정책,학교");
+A("자료","한국직업능력연구원","","직업능력과 진로교육을 연구하고 진로 정보를 제공하는 기관.","한국직업능력연구원","https://www.krivet.re.kr","진로교육,연구,직업능력");
+A("자료","공공데이터포털","","공공기관 데이터와 API를 찾고 신청하는 포털.","공공데이터포털","https://www.data.go.kr","데이터,API,공공데이터");
+A("멘토링","커리어넷 진로상담","","온라인으로 진로 고민을 상담하는 서비스.","커리어넷",CU,"상담,멘토링,진로상담,고민");
+A("멘토링","대입상담센터 1600-1615","","대입 전반을 전화와 온라인으로 상담받는 센터.","어디가","https://www.adiga.kr","상담,대입,전화,입시");
+const B=(t,n,d,sr,u,k,x,r=[])=>{A(t,n,"",d,sr,u,k,r,t==="일정"?"일정 변동 가능. 공식 공고 확인.":"");Object.assign(D[D.length-1],x)};
+B("일정","2027학년도 대학수학능력시험","대학수학능력시험 시행일. 성적 통지는 12월 11일.","한국교육과정평가원","https://www.suneung.re.kr","수능,대학수학능력시험,시험,입시,일정",{ds:"2026-11-19",de:"2026-11-19",tg:"수험생",pr:"한국교육과정평가원"},["대입정보포털 어디가"]);
+B("일정","수능 성적 통지","수능 성적 통지일.","한국교육과정평가원","https://www.suneung.re.kr","수능,성적,통지,입시",{ds:"2026-12-11",de:"2026-12-11",tg:"수험생",pr:"한국교육과정평가원"},["대입정보포털 어디가"]);
+B("일정","2027학년도 정시모집 원서접수","대학별 3일 이상 접수. 군별 지원 대학과 세부 기간은 각 대학 입학처 확인.","한국대학교육협의회","https://www.kcue.or.kr","정시,원서,접수,입시,대입",{ds:"2027-01-04",de:"2027-01-07",tg:"정시 지원자",pr:"각 대학"},["대입정보포털 어디가"]);
+B("일정","2027학년도 정시 합격자 등록","정시 합격자 등록 기간.","한국대학교육협의회","https://www.kcue.or.kr","정시,등록,합격,입시",{ds:"2027-02-10",de:"2027-02-12",tg:"정시 합격자",pr:"각 대학"},["대입정보포털 어디가"]);
+B("일정","2027학년도 추가모집","정원 미충원 대학의 마지막 모집.","한국대학교육협의회","https://www.kcue.or.kr","추가모집,입시,대입",{ds:"2027-02-19",de:"2027-02-26",tg:"지원 희망자",pr:"각 대학"},["대입정보포털 어디가"]);
+B("기회","청소년활동정보서비스(e청소년)","청소년 수련활동과 체험, 동아리 등 청소년활동 정보를 찾는 공식 서비스.","e청소년","https://www.youth.go.kr","청소년활동,수련,체험,동아리,활동");
+B("기회","1365 자원봉사포털","자원봉사 활동을 검색해 신청하고 봉사 실적을 관리하는 서비스.","1365 자원봉사포털","https://www.1365.go.kr","봉사,자원봉사,봉사활동,활동");
+B("자기계발","큐넷(국가기술자격)","국가기술자격 종목 정보와 시험 일정, 접수를 제공하는 서비스.","한국산업인력공단 큐넷","https://www.q-net.or.kr","자격증,자격,국가기술자격,시험,컴퓨터");
+B("자기계발","K-MOOC","대학 강의를 무료로 들을 수 있는 온라인 공개강좌.","K-MOOC","https://www.kmooc.kr","강의,무료강의,온라인,대학강의,mooc");
+B("지원","한국장학재단","대학 진학 후 받을 수 있는 장학금과 학자금 지원 정보를 제공하는 기관.","한국장학재단","https://www.kosaf.go.kr","장학금,학자금,대학,등록금");
+B("지원","복지로","청소년을 포함한 복지서비스와 지원 정책을 검색하는 공식 포털.","복지로","https://www.bokjiro.go.kr","복지,지원,청소년,정책");
+B("지원","청소년사이버상담센터 1388","청소년이 온라인과 전화로 고민을 상담하는 공식 상담 창구.","청소년사이버상담센터","https://www.cyber1388.kr","상담,청소년,지원,고민");
+B("기회","동아사이언스 SF스토리 공모전","웹툰·소설 부문 SF 스토리 공모전. 최종 발표 12월 4일.","씽유(공모전 정보 사이트)","https://thinkyou.co.kr/contest/66880/","공모전,SF,웹툰,소설,글쓰기,청소년,대외활동",{ds:"2026-08-31",de:"2026-11-08",tg:"청소년(만 18세 이하) 및 일반",pr:"동아사이언스 과학동아",unv:1});
+D.forEach(e=>{if(e.t==="일정")e.yr="2027학년도"});
+/* 대학 */
+const UN=[["서울대학교","서울","국립"],["연세대학교","서울","사립"],["고려대학교","서울","사립"],["서강대학교","서울","사립"],["성균관대학교","서울","사립"],["한양대학교","서울","사립"],["중앙대학교","서울","사립"],["경희대학교","서울","사립"],["한국외국어대학교","서울","사립"],["이화여자대학교","서울","사립"],["건국대학교","서울","사립"],["동국대학교","서울","사립"],["홍익대학교","서울","사립"],["숭실대학교","서울","사립"],["국민대학교","서울","사립"],["세종대학교","서울","사립"],["숙명여자대학교","서울","사립"],["서울시립대학교","서울","공립"],["서울과학기술대학교","서울","국립"],["아주대학교","경기","사립"],["가천대학교","경기","사립"],["경기대학교","경기","사립"],["인하대학교","인천","사립"],["인천대학교","인천","공립"],["강원대학교","강원","국립"],["충북대학교","충북","국립"],["KAIST","대전","과학기술원"],["충남대학교","대전","국립"],["한남대학교","대전","사립"],["부산대학교","부산","국립"],["부경대학교","부산","국립"],["동아대학교","부산","사립"],["경북대학교","대구","국립"],["계명대학교","대구","사립"],["DGIST","대구","과학기술원"],["영남대학교","경북","사립"],["포항공과대학교","경북","사립"],["전남대학교","광주","국립"],["조선대학교","광주","사립"],["GIST","광주","과학기술원"],["전북대학교","전북","국립"],["울산대학교","울산","사립"],["UNIST","울산","과학기술원"],["경상국립대학교","경남","국립"],["제주대학교","제주","국립"],["단국대학교","경기","사립"],["광운대학교","서울","사립"],["명지대학교","서울","사립"],["상명대학교","서울","사립"],["가톨릭대학교","경기","사립"],["한성대학교","서울","사립"],["서경대학교","서울","사립"],["삼육대학교","서울","사립"]];
+UN.forEach(([n,rg,kd])=>{A("대학",n,"",kd==="과학기술원"?`${rg} 소재 과학기술원. 학과·전형은 공식 입학처 확인.`:`${rg} 소재 ${kd} 대학. 학과·전형은 공식 입학처와 대학알리미 확인.`,"대학알리미","https://www.academyinfo.go.kr",`${rg},${kd},대학,${n}`);const e=D[D.length-1];e.rg=rg;e.kd=kd});
+{const u=[];D.forEach(e=>{if(!u.some(x=>x.n===e.n))u.push(e)});D.length=0;D.push(...u)}
+const DP={},P=(n,g,s,y,p,k,a,af,c,ac,sim)=>DP[n]={g,s:s.split(","),y:y.split("|"),p,k,a,af,c,ac,sim:sim.split(",")};
+P("행정학과","공공 문제를 정책과 조직 운영으로 해결하는 인재 양성. 공익, 공정성, 책임성을 기본 가치로 함.","행정학원론,정책학원론,조직론,인사행정론,재무행정론,지방자치론,행정법,정책분석론","1학년: 행정학개론, 정치학·경제학 기초|2학년: 조직론, 인사·재무행정, 행정법|3학년: 정책분석, 지방자치, 전자정부|4학년: 졸업논문, 공공 프로젝트·인턴","사례 토론, 정책 보고서 작성, 통계 기반 정책 분석, 지자체·공공기관 현장 탐방(대학별 상이)","문서 작성과 설득, 법·제도 이해, 공정성과 책임감, 기초 통계 활용","중앙·지방 정부, 공공기관, 공기업, 싱크탱크, 비영리단체","공무원 시험 준비, 공공기관·공기업 취업, 대학원(행정·정책) 진학","행정사, 사회조사분석사, 컴퓨터활용능력","모의 정책 토론, 지역 문제 해결 프로젝트, 자원봉사","정치외교학과,법학과,경제학과,사회복지학과");
+P("경영학과","기업과 조직의 의사결정을 이해하고 가치를 만드는 경영 전문가 양성.","경영학원론,회계원리,마케팅원론,재무관리,인사조직론,생산운영관리,경영통계,경영전략","1학년: 경영학원론, 회계원리, 경제원론|2학년: 마케팅, 재무관리, 조직행동|3학년: 경영전략, 투자론, 소비자행동 등 트랙 심화|4학년: 캡스톤, 기업 연계 프로젝트","사례 연구, 팀 프로젝트, 시장 조사와 데이터 분석, 창업 아이디어 발표","숫자 감각, 협업과 의사소통, 문제 해결, 리더십","기업 기획·마케팅·재무·인사, 컨설팅, 금융, 스타트업","기업 취업, 창업, 회계·금융 자격 취득, 경영대학원 진학","공인회계사, 투자자산운용사, 컴퓨터활용능력, 전산회계","경영 동아리, 창업 경진대회, 시장 분석 프로젝트","경제학과,회계학과,무역학과");
+P("경제학과","시장과 정책을 데이터로 분석하는 경제적 사고력 양성.","미시경제학,거시경제학,계량경제학,화폐금융론,국제경제학,경제통계학,산업조직론,재정학","1학년: 경제원론, 수학·통계 기초|2학년: 미시·거시경제학 중급, 경제통계|3학년: 계량경제, 금융·국제경제 선택|4학년: 졸업논문, 정책 분석 세미나","경제 모형 수립, 통계 도구를 활용한 자료 분석, 논문 읽기와 정책 토론","수리적 사고, 데이터 해석, 논리적 글쓰기, 사회 현상에 대한 호기심","금융기관, 연구소, 공공기관, 기업 전략·분석","금융권·공공기관 취업, 대학원 진학, 공무원","데이터분석 준전문가(ADsP), 투자자산운용사, TESAT(민간)","경제 신문 토론, 공공데이터 분석 프로젝트, 교육용 모의 투자","경영학과,통계학과,행정학과");
+P("법학과","법의 원리와 제도를 이해하고 법적 문제를 논리적으로 해결하는 인재 양성.","헌법,민법,형법,상법,행정법,민사소송법,형사소송법,법철학","1학년: 법학개론, 헌법|2학년: 민법·형법 총론|3학년: 상법, 소송법, 행정법|4학년: 판례 연구 세미나","판례 분석, 모의재판, 법률 문서 작성(대학별 상이). 학부 법학과 개설 여부는 대학별 확인 필요","정확한 읽기와 쓰기, 논리적 추론, 공정성, 꾸준한 학습 태도","법원·검찰, 법률 서비스 업계, 공공기관, 기업 법무, 시민단체","법학전문대학원 진학, 공무원 시험, 기업 법무·컴플라이언스","변호사시험(법학전문대학원 과정 필요), 법무사, 변리사","모의재판 동아리, 판례 읽기, 법 관련 토론","행정학과,정치외교학과,경찰행정학과");
+P("심리학과","인간의 마음과 행동을 과학적 방법으로 이해하고 적용하는 인재 양성.","일반심리학,실험심리학,심리통계,발달심리학,사회심리학,이상심리학,인지심리학,상담심리학","1학년: 심리학개론, 통계 기초|2학년: 실험심리학, 심리통계, 발달·사회심리|3학년: 인지·이상·상담심리 선택|4학년: 졸업연구, 실습","심리 실험 설계와 자료 분석, 설문 조사, 심리검사 해석 실습, 사례 토론","관찰력, 공감, 통계적 사고, 윤리 의식","상담센터, 청소년·학교 기관, 병원, 기업 인사·소비자 연구, 연구소","대학원(상담·임상 등) 진학, 상담·교육 기관 취업, 기업 연구직","청소년상담사, 임상심리사, 전문상담교사(교원 자격 필요)","심리 연구 동아리, 상담 봉사 교육, 통계 분석 학습","사회복지학과,교육학과,아동가족학과");
+P("사회복지학과","복지 제도와 실천 방법을 배워 도움이 필요한 사람과 지역사회를 지원하는 전문가 양성.","사회복지개론,인간행동과 사회환경,사회복지정책론,사회복지실천론,지역사회복지론,사회복지조사론,사회복지법제론,사회복지행정론","1학년: 사회복지개론, 인간행동과 사회환경|2학년: 실천론, 정책론, 조사론|3학년: 지역사회복지, 행정론, 법제|4학년: 사회복지 현장실습","복지기관 현장실습, 사례 개입 연습, 지역 조사, 봉사 연계","경청과 공감, 책임감, 윤리 의식, 협업","복지관, 아동·노인·장애인 시설, 공공기관(사회복지직), 의료·교육기관","사회복지기관 취업, 공무원(사회복지직), 대학원 진학","사회복지사 1·2급, 청소년지도사","자원봉사(1365), 복지기관 체험, 지역 돌봄 프로그램","심리학과,행정학과,아동가족학과");
+P("컴퓨터공학과","컴퓨팅 원리를 이해하고 소프트웨어와 시스템을 설계·구현하는 인재 양성.","프로그래밍,자료구조,알고리즘,컴퓨터구조,운영체제,데이터베이스,컴퓨터네트워크,인공지능","1학년: 프로그래밍 기초, 이산수학|2학년: 자료구조, 컴퓨터구조, 알고리즘|3학년: 운영체제, 데이터베이스, 네트워크, 소프트웨어공학|4학년: 캡스톤디자인, 인공지능·보안 심화","코딩 실습, 팀 프로젝트, 캡스톤디자인, 알고리즘 문제 풀이","논리적 사고, 문제 해결, 꾸준한 학습, 수학 기초","소프트웨어·IT 기업, 연구소, 금융·제조 분야 IT, 스타트업","개발자 취업, 대학원 진학, 창업","정보처리기사, 정보보안기사, ADsP","코딩 동아리, 해커톤·알고리즘 대회, 오픈소스 참여","소프트웨어학과,인공지능학과,전자공학과");
+P("간호학과","건강 증진과 환자 돌봄에 필요한 지식·기술·윤리를 갖춘 간호 인력 양성.","해부생리학,병태생리학,기본간호학,성인간호학,모성간호학,아동간호학,정신간호학,지역사회간호학","1학년: 기초 의학·간호 기초|2학년: 기본간호학, 성인간호학|3학년: 모성·아동·정신 간호, 임상실습 시작|4학년: 지역사회간호, 종합 임상실습","실습실 술기 훈련, 병원 임상실습, 시뮬레이션 교육","책임감, 공감과 배려, 체력, 침착한 판단","병원, 보건소, 산업체, 해외 간호","간호사 취업, 보건직 공무원, 대학원(전문간호사 등) 진학","간호사 면허(국가시험), 보건교사(교원 자격 필요)","보건 의료 봉사, 응급처치 교육 이수, 병원 직업체험","보건행정학과,응급구조학과,물리치료학과");
+P("교육학과","교육의 원리와 학습 과정을 이해하고 교육 현장과 정책에 적용하는 인재 양성.","교육학개론,교육심리학,교육과정,교육사회학,교육철학,교육행정학,교육평가,교육공학","1학년: 교육학개론, 교육심리학|2학년: 교육과정, 교육사회학, 교육철학|3학년: 교육행정, 교육평가, 교육공학|4학년: 교육 연구 방법, 현장 참관·졸업연구","수업 설계와 시연, 교육 연구 방법과 사례 분석, 교육 현장 참관","설명과 소통 능력, 인내심, 관찰력, 학습자에 대한 관심","교육 관련 기관, 에듀테크 기업, 평생교육 기관, 공공기관","대학원 진학, 교육 기업·기관 취업. 교사는 교직 이수 또는 사범대 경로와 임용 절차 필요","청소년지도사, 평생교육사, 교원자격(교직 과정 필요)","교육 봉사·멘토링, 수업 연구 동아리, 교육 정책 토론","심리학과,사회복지학과,유아교육학과");
+P("정치외교학과","정치 현상과 국제 질서를 이론과 사례로 분석하는 인재 양성.","정치학개론,비교정치,국제정치학,외교정책론,정치사상,한국정치론,국제기구론,정치경제학","1학년: 정치학개론, 국제관계 기초|2학년: 비교정치, 정치사상, 한국정치|3학년: 국제정치이론, 외교정책, 지역 연구|4학년: 졸업논문, 정책 세미나","토론과 논문 작성, 모의 유엔·모의 선거 등 시뮬레이션, 시사 사례 분석(대학별 상이)","시사에 대한 관심, 논리적 글쓰기와 토론, 비판적 사고, 외국어 활용","정부·국제기구, 언론, 정당·시민단체, 공공기관, 연구소","공무원·외교관후보자 선발시험 준비, 언론·공공기관 취업, 대학원 진학","필수 면허 없음. 사회조사분석사, 외국어 공인시험","모의 유엔 활동, 시사 토론 동아리, 청소년 정책 참여","행정학과,법학과,신문방송학과,경제학과");
+P("회계학과","기업의 재무 정보를 측정·보고·검토하는 회계 전문가 양성.","회계원리,중급회계,원가회계,관리회계,회계감사,세법,고급회계,회계정보시스템","1학년: 회계원리, 경영학 기초|2학년: 중급회계, 원가회계|3학년: 고급회계, 회계감사, 세법|4학년: 세무·감사 실무 심화, 자격시험 준비","장부 작성과 재무제표 분석 실습, 회계 소프트웨어 활용, 감사·세무 사례 연습","꼼꼼함, 숫자 정확성, 윤리 의식, 꾸준한 학습","회계법인, 기업 재무·회계팀, 금융기관, 공공기관, 세무 분야","공인회계사·세무사 시험 준비, 기업 재무회계 취업, 공공기관 회계직","공인회계사, 세무사, 전산회계","회계 동아리, 재무제표 읽기 스터디, 모의 감사","경영학과,경제학과,무역학과");
+P("무역학과","국제 거래의 제도와 실무를 이해해 글로벌 시장에서 활동할 인재 양성.","국제무역론,무역실무,국제마케팅,국제금융론,무역계약,무역영어,국제경영,관세법","1학년: 경제·경영 기초, 무역학개론|2학년: 국제무역론, 무역영어|3학년: 무역실무, 국제금융, 관세|4학년: 무역 프로젝트·인턴","무역 서류 작성 실습, 모의 수출입 거래, 해외 시장 조사 발표","외국어 능력, 글로벌 감각, 협상력, 꼼꼼한 서류 처리","무역 회사, 물류·운송, 제조업 해외영업, 금융, 무역 지원 공공기관","해외영업·무역 실무 취업, 관세사 시험 준비, 대학원 진학","국제무역사, 무역영어, 관세사","무역 동아리, 외국어 학습, 글로벌 경제 뉴스 스크랩","경영학과,경제학과,회계학과");
+P("통계학과","확률과 통계 이론으로 자료를 분석해 의사결정의 근거를 만드는 인재 양성.","확률론,수리통계학,회귀분석,통계계산,다변량분석,시계열분석,표본조사론,데이터마이닝","1학년: 미적분, 통계학 입문|2학년: 확률론, 수리통계, 프로그래밍|3학년: 회귀분석, 다변량분석, 시계열분석|4학년: 데이터 분석 프로젝트","통계 소프트웨어(R, Python 등) 실습, 실제 자료 분석 과제, 표본조사 설계 연습","수학적 사고, 논리력, 끈기, 분석 결과를 설명하는 능력","데이터·AI 기업, 금융·보험, 통계 관련 공공기관, 제약·연구소","데이터 분석가 취업, 대학원 진학, 공무원(통계직)","사회조사분석사, 데이터분석 준전문가(ADsP), 빅데이터분석기사","공공데이터 활용 공모전, 데이터 분석 동아리, K-MOOC 통계 강의","컴퓨터공학과,경제학과,인공지능학과");
+P("신문방송학과","미디어 환경을 이해하고 정보를 분석·전달하는 커뮤니케이션 전문가 양성.","미디어와 사회,커뮤니케이션 이론,언론법과 윤리,방송 제작,뉴스 취재와 보도,광고론,여론 연구,디지털 미디어","1학년: 언론정보학개론|2학년: 커뮤니케이션 이론, 연구 방법|3학년: 방송 제작, 보도, 광고·PR|4학년: 졸업 작품·논문, 인턴","영상·기사 제작 실습, 조사 방법 실습, 미디어 사례 분석(학과명과 교육과정은 대학별 상이)","호기심, 글쓰기와 말하기, 기획력, 시사 이해","신문·방송사, 광고·홍보 회사, 콘텐츠 기업, 공공기관 홍보","언론사·콘텐츠 기업 취업, 홍보·마케팅 직무, 대학원 진학","필수 자격 없음. 컴퓨터활용능력, 외국어 공인시험","교내 방송·신문 활동, 영상 제작, 미디어 리터러시 교육 참여","정치외교학과,경영학과,국어국문학과");
+P("경찰행정학과","법과 행정의 이해를 바탕으로 공공 안전 업무를 맡을 인재 양성.","경찰학개론,형법,형사소송법,범죄학,경찰행정론,수사론,행정법,치안정책론","1학년: 경찰학개론, 법학 기초|2학년: 형법, 행정법, 범죄학|3학년: 형사소송법, 수사론, 치안정책|4학년: 실무 연계 세미나","사례 연구, 법 조문 학습, 체력·실무 교육(대학별 상이)","정의감, 책임감, 체력, 침착한 판단","경찰, 해양경찰, 소방 등 공공안전 분야, 민간 보안·경비, 공공기관","경찰공무원 시험 준비, 공공기관 취업, 대학원 진학","경비지도사 등. 경찰공무원 채용 요건은 공식 공고 확인","체력 단련, 법 학습 스터디, 안전 관련 봉사","법학과,행정학과,소방방재학과");
+P("전자공학과","전자 소자와 회로, 시스템의 원리를 이해해 정보통신과 반도체 기술을 설계하는 인재 양성.","회로이론,전자기학,디지털논리회로,신호 및 시스템,반도체공학,전자회로,통신이론,임베디드시스템","1학년: 공학수학, 물리, 프로그래밍|2학년: 회로이론, 전자기학, 디지털논리회로|3학년: 신호 및 시스템, 전자회로, 반도체|4학년: 캡스톤디자인, 통신·임베디드 심화","회로 제작과 측정 실습, 반도체·임베디드 실험, 팀 프로젝트","수학·물리 기초, 논리적 사고, 실험에 대한 끈기, 꼼꼼함","반도체·전자 기업, 통신, 자동차·로봇 기업, 연구소","엔지니어 취업, 대학원 진학, 연구직","전자기사, 정보통신기사","아두이노 제작, 로봇·전자 동아리, 공학 경진대회","컴퓨터공학과,소프트웨어학과,기계공학과");
+P("소프트웨어학과","소프트웨어를 설계·개발·운영하는 실무형 인재 양성.","프로그래밍 언어,자료구조,알고리즘,소프트웨어공학,웹 프로그래밍,데이터베이스,모바일 앱 개발,클라우드 컴퓨팅","1학년: 프로그래밍 기초|2학년: 자료구조, 알고리즘, 웹 개발|3학년: 소프트웨어공학, 데이터베이스, 앱·클라우드|4학년: 산학 프로젝트, 졸업 작품","프로젝트 기반 수업, 팀 개발과 코드 리뷰, 서비스 제작 경험(대학별 상이)","문제 해결, 협업, 새로운 기술 학습 의지, 논리적 사고","IT 서비스 기업, 스타트업, 금융·제조 IT, 공공 IT","개발자 취업, 창업, 대학원 진학","정보처리기사, 정보보안기사","코딩 동아리, 해커톤, 오픈소스 기여","컴퓨터공학과,인공지능학과,전자공학과");
+P("인공지능학과","인공지능 이론과 응용 기술로 문제를 해결하는 인재 양성.","선형대수,확률과 통계,기계학습,딥러닝,자연어처리,컴퓨터비전,데이터마이닝,최적화","1학년: 미적분, 프로그래밍|2학년: 선형대수, 확률통계, 자료구조|3학년: 기계학습, 딥러닝, 데이터 처리|4학년: 응용 프로젝트(자연어·비전 등)","모델 구현과 실험, 데이터셋 분석, 팀 프로젝트","수학 기초, 끈기 있는 실험, 코딩, 최신 연구 동향 탐색","AI·IT 기업, 연구소, 금융·의료 분야 데이터 팀, 스타트업","대학원 진학과 기업 연구·개발직 취업이 일반적인 경로","빅데이터분석기사, ADsP, 정보처리기사","AI 공모전, 데이터 분석 대회, 프로젝트 포트폴리오","컴퓨터공학과,통계학과,소프트웨어학과");
+P("아동가족학과","아동 발달과 가족 관계를 이해해 보육·교육·상담 현장에 적용할 인재 양성.","아동발달,가족관계학,부모교육,보육학개론,아동복지,영유아 프로그램 개발,아동 상담,가족정책","1학년: 아동학개론, 가족학개론|2학년: 아동발달, 가족관계, 보육|3학년: 부모교육, 아동복지, 프로그램 개발|4학년: 현장 실습, 졸업연구","보육·교육 현장 관찰, 놀이 프로그램 기획 실습, 사례 연구","아이와 가족에 대한 관심, 공감과 인내, 협력, 관찰력","보육·교육 기관, 아동·가족 복지기관, 상담센터, 공공기관","보육·복지 기관 취업, 상담·복지 분야 대학원 진학","보육교사, 청소년지도사, 사회복지사(요건은 대학 교육과정에 따라 상이)","아동 돌봄 봉사, 아동 발달 도서 읽기, 지역 돌봄 프로그램","심리학과,사회복지학과,유아교육학과");
+P("유아교육학과","영유아의 발달 특성을 이해하고 유아교육 현장에서 가르칠 교사 양성.","유아발달,유아교육과정,유아교수방법론,유아 언어교육,유아 수·과학교육,유아 음악·미술교육,유아 놀이지도,부모교육","1학년: 유아교육개론, 아동 발달|2학년: 교육과정, 언어·수·과학 교육|3학년: 놀이지도, 교수방법, 교육실습 준비|4학년: 교육실습, 졸업연구","유치원 교육실습, 수업·놀이 활동 설계 시연, 교구 제작","아이를 향한 애정, 인내심, 창의력, 소통 능력","유치원, 어린이집, 교육 콘텐츠 기업, 아동 교육 기관","유치원 정교사 자격 취득 후 임용·채용 절차, 교육 기관 취업, 대학원 진학","유치원 정교사 자격, 보육교사","유아 교육 봉사, 놀이 교구 제작, 교육 멘토링","교육학과,아동가족학과,심리학과");
+P("보건행정학과","보건의료 시스템을 이해하고 의료기관과 보건 정책을 관리할 인재 양성.","보건학개론,보건의료정책,병원경영,의료법규,보건통계,건강보험론,역학,의료정보","1학년: 보건학개론, 의료와 사회|2학년: 보건의료정책, 의료법규|3학년: 병원경영, 건강보험, 보건통계|4학년: 병원·보건기관 실습","병원·보건기관 현장 실습, 의료 통계 분석, 정책 사례 토론","의료·건강에 대한 관심, 분석력, 책임감, 소통 능력","병원 행정, 보건소·보건 공공기관, 건강보험 관련 기관, 제약·의료기기 회사","병원 행정 취업, 보건 관련 공공기관 취업, 대학원 진학","보건의료정보관리사, 보건교육사","보건 의료 봉사, 건강 캠페인 참여, 의료 통계 학습","간호학과,응급구조학과,물리치료학과");
+P("응급구조학과","응급 환자의 평가와 처치 능력을 갖춘 응급구조 전문 인력 양성.","응급처치학,기초 해부생리학,응급의료학개론,외상 응급처치,심폐소생술,응급환자 평가,환자 이송,재난·구조 대응","1학년: 해부생리, 응급의료 개론|2학년: 응급처치, 심폐소생술|3학년: 외상·내과 응급처치, 병원 실습|4학년: 구급 현장 실습, 종합 평가","실습실 응급처치 훈련, 심폐소생술 시뮬레이션, 병원·구급 현장 실습","침착함, 체력, 빠른 판단과 책임감, 팀워크","소방 구급대, 병원 응급실, 민간 이송 업체, 재난 대응 기관","응급구조사 취업, 소방공무원 시험 준비, 대학원 진학","응급구조사 1급","응급처치·CPR 교육 이수, 의료 봉사, 소방서 체험","간호학과,물리치료학과,소방방재학과");
+P("물리치료학과","신체 기능 회복을 돕는 재활 치료 전문가 양성.","해부학,생리학,운동치료학,근골격계 물리치료,신경계 물리치료,물리적 인자치료,운동학,임상 실습","1학년: 해부학, 생리학|2학년: 운동학, 운동치료학|3학년: 근골격계·신경계 물리치료|4학년: 임상 실습, 국가시험 준비","실습실 치료 기술 훈련, 환자 평가 실습, 병원 임상 실습","체력, 손기술, 공감과 인내, 해부·생리에 대한 관심","병원·재활센터, 스포츠 팀, 보건소·복지 시설","물리치료사 취업, 대학원 진학","물리치료사 면허(국가시험)","의료 봉사, 운동 재활 관련 독서·체험, 병원 직업체험","간호학과,응급구조학과,보건행정학과");
+D.forEach(e=>{const d=DP[e.n];if(d)e.k=e.k.concat(d.s)});
+const HS={"행정학과": "사회(정치·법, 경제, 사회·문화), 국어(독서·작문), 수학(확률과 통계)", "경영학과": "사회(경제, 사회·문화), 수학(확률과 통계), 정보, 영어", "경제학과": "사회(경제), 수학(확률과 통계, 미적분), 정보", "법학과": "사회(정치·법, 윤리), 국어(독서·작문, 언어와 매체), 영어", "심리학과": "사회(사회·문화), 과학(생명과학), 수학(확률과 통계), 국어(독서·작문)", "사회복지학과": "사회(사회·문화, 윤리), 국어(화법·작문), 과학(생명과학 기초)", "컴퓨터공학과": "수학(확률과 통계, 미적분), 정보, 과학(물리)", "간호학과": "과학(생명과학, 화학), 수학(확률과 통계), 윤리 관련 과목", "교육학과": "국어(독서·작문, 화법), 사회(윤리, 사회·문화), 교육 관련 교양 과목", "정치외교학과": "사회(정치·법, 세계지리·세계사), 국어(독서·작문), 영어", "회계학과": "수학(확률과 통계), 사회(경제), 정보", "무역학과": "사회(경제, 세계지리), 영어·제2외국어, 수학(확률과 통계)", "통계학과": "수학(확률과 통계, 미적분), 정보", "신문방송학과": "국어(독서·작문, 언어와 매체), 사회(사회·문화), 정보, 영어", "경찰행정학과": "사회(정치·법, 사회·문화), 국어(독서·작문), 체육(체력·건강)", "전자공학과": "수학(미적분, 기하), 과학(물리), 정보", "소프트웨어학과": "수학(확률과 통계, 미적분), 정보(인공지능·데이터 관련 과목)", "인공지능학과": "수학(확률과 통계, 미적분), 정보(인공지능·데이터 관련 과목)", "아동가족학과": "사회(사회·문화), 국어(독서·작문), 과학(생명과학 기초), 가정·보건 관련 교양", "유아교육학과": "국어, 사회(사회·문화), 예체능(음악·미술·체육), 교육 관련 교양", "보건행정학과": "사회(사회·문화, 경제), 과학(생명과학), 수학(확률과 통계)", "응급구조학과": "과학(생명과학, 화학), 체육(체력·건강), 수학(확률과 통계)", "물리치료학과": "과학(생명과학, 물리), 체육(운동·건강), 수학(확률과 통계)"};
+const INT=[["사람 돕기","복지 상담 돌봄 심리"],["숫자·데이터","통계 데이터 회계 경제"],["코딩·기술","코딩 소프트웨어 인공지능 전자"],["글·말·미디어","미디어 언론 방송 콘텐츠"],["공공·사회 문제","행정 정책 공공 법률"],["건강·의료","간호 의료 재활 응급"],["아이·교육","교육 유아 아동 교사"]];
+const pf=()=>{const o=ls.get("pf",null)||{};return{fi:o.fi||ls.get("fi",[]),dp:o.dp||[],rg:o.rg||[],jb:o.jb||[],ac:o.ac||[]}};
+const cp=()=>{const c=ls.get("cp",null)||{};return{"학과":c["학과"]||[],"대학":c["대학"]||[]}},cn=()=>{const c=cp();return c["학과"].length+c["대학"].length};
+let DR=null,CT="학과",KEEP=false;
+const TY=["직업","학과","대학","일정","체험","기회","자기계발","지원","자료","멘토링"],GR={"대학·입시":["대학","학과","일정"],"활동·기회":["체험","기회","멘토링"],"자기계발":["자기계발"],"직업·진로":["직업","자료"],"생활 지원":["지원"]},FI=["사회","공학","의약","교육","자연"];
+const CATS=Object.keys(GR).map(k=>["",k,"","#/g/"+enc(k)]);
+const POP=["행정학과","공무원","컴퓨터공학과","간호학과","서울 대학","진로 체험"];
+const gs=q=>"https://www.google.com/search?q="+enc(q);
+const byN=n=>D.find(e=>e.n===n),id=e=>enc(e.n);
+const sv=()=>ls.get("sv",[]),fi=()=>{const p=pf();return[...p.fi,...p.dp,...p.rg,...p.jb,...p.ac]};
+const TYW={"일정":"일정","자격증":"자기계발","지원":"지원","직업":"직업","학과":"학과","대학":"대학","체험":"체험","자료":"자료","멘토링":"멘토링","강연":"멘토링","상담":"멘토링"};
+const STOP=new Set(["관련","진학하려면","진학","어떤","좋을까","있는","되려면","정보","입시","대학별","고등학생이","참여할","수","알려줘","계열","에서","찾아줘"]);
+const RG=[...new Set(UN.map(u=>u[1]))];
+function search(q){
+ const toks=q.trim().split(/\s+/).filter(Boolean);let hint=new Set(),rg="",terms=[];
+ toks.forEach(t=>{const bare=t.replace(/(이|가|은|는|을|를|의|에|으로|로)$/,"");if(TYW[t]||TYW[bare]){hint.add(TYW[t]||TYW[bare]);return}if(STOP.has(t)||STOP.has(bare))return;const r=RG.find(x=>bare.startsWith(x));if(r){rg=r;return}terms.push(bare.replace(/(과|와)$/,t.endsWith("학과")?"과":"$&"))});
+ let L=[];
+ if(!terms.length&&!rg&&!hint.size){return []}
+ D.forEach(e=>{let s=0;terms.forEach(t=>{if(e.n===t)s+=20;else if(e.n.startsWith(t))s+=9;else if(e.n.includes(t))s+=6;else if(e.k.some(k=>k.includes(t)))s+=4;else if(e.d.includes(t))s+=1});
+  if(rg&&e.rg===rg)s+=terms.length?2:5;
+  if(!terms.length&&hint.size&&hint.has(e.t)&&(!rg||e.rg===rg))s=Math.max(s,3);
+  if(s>0){const q2=stat(e);if(q2&&q2.c==="x")s*=.5;if(hint.has(e.t))s+=2;if(rg&&e.t==="대학"&&e.rg!==rg)s=0;if(s>0)L.push({e,s})}});
+ L.sort((a,b)=>b.s-a.s);
+ L.slice(0,3).forEach(({e})=>e.r.forEach(n=>{const x=byN(n);if(x&&!L.some(l=>l.e===x))L.push({e:x,s:1.5})}));
+ return L;
+}
+function relFor(e){const o=e.r.map(byN).filter(Boolean);D.filter(x=>x!==e&&!o.includes(x)&&(x.t===e.t||x.k.some(k=>e.k.includes(k)))).sort((a,b)=>b.k.filter(k=>e.k.includes(k)).length-a.k.filter(k=>e.k.includes(k)).length).slice(0,Math.max(0,5-o.length)).forEach(x=>o.push(x));return o}
+const badge=e=>`<span class="bd">${e.t}</span>`+(e.yr?`<span class="bd">${e.yr}</span>`:"")+(e.unv?`<span class="bd w">비공식 출처 · 주최 확인 필요</span>`:["직업","학과","대학"].includes(e.t)?`<span class="bd o">참고 요약 · 출처 ${esc(e.s)}</span>`:`<span class="bd o">공식 출처 ${esc(e.s)}</span>`)+(dday(UPD,TODAY)>90?`<span class="stt x">오래된 정보</span>`:"");
+const star=e=>`<button class="st ${sv().includes(e.n)?"on":""}" data-s="${esc(e.n)}" aria-label="${esc(e.n)} 저장" aria-pressed="${sv().includes(e.n)}">${sv().includes(e.n)?"★":"☆"}</button>`;
+const kws=e=>`<div class="kw">${e.k.map(k=>`<span>#${esc(k)}</span>`).join("")}</div>`;
+const TODAY=new Date().toLocaleDateString("sv-SE"),dday=(a,b)=>Math.round((new Date(b)-new Date(a))/864e5),fm=x=>x.replace(/-/g,"."),per=e=>e.ds===e.de?fm(e.ds):fm(e.ds)+" ~ "+fm(e.de);
+function stat(e){const ev=e.t==="일정";if(!e.ds)return["체험","기회","지원","자기계발"].includes(e.t)?{l:"상시 운영",c:"s"}:null;
+ if(TODAY>e.de)return{l:ev?"종료":"마감",c:"x"};
+ if(TODAY<e.ds)return{l:ev?"예정":"모집 예정",c:"p",d:"D-"+dday(TODAY,e.ds)};
+ const n=dday(TODAY,e.de);return n<=7&&!ev?{l:"마감 임박",c:"u",d:"D-"+n}:{l:ev?"진행 중":"모집 중",c:"g",d:ev?"":n?"D-"+n:"오늘 마감"}}
+const sbadge=e=>{const t=stat(e);return t?`<span class="stt ${t.c}">${t.l}${t.d?" · "+t.d:""}</span>`:""};
+const row=e=>`<a class="row" href="#/d/${id(e)}"><span><b>${esc(e.n)}</b><small>${esc(e.ds?per(e)+" · "+e.d:e.d)}</small></span>${sbadge(e)}</a>`;
+const dueKey=e=>{const t=stat(e);if(!t)return 9e3;if(t.c==="x")return 8e3;if(!e.ds)return 7e3;return Math.max(0,dday(TODAY,TODAY<e.ds?e.ds:e.de))};
+function recsW(){const p=pf(),out=[],add=(e,w)=>{if(e&&!out.some(x=>x.e===e)&&!sv().includes(e.n))out.push({e,why:w})};
+ p.dp.forEach(n=>{const d=byN(n);d&&d.r.forEach(r=>add(byN(r),`관심 학과 ${n}와 연결`))});
+ p.jb.forEach(n=>{const j=byN(n);j&&j.r.forEach(r=>add(byN(r),`관심 직업 ${n}와 연결`))});
+ p.fi.forEach(f=>D.filter(e=>e.f===f&&["학과","직업"].includes(e.t)).forEach(e=>add(e,`관심 계열 ${f}`)));
+ p.rg.forEach(g=>D.filter(e=>e.rg===g).slice(0,4).forEach(e=>add(e,`희망 지역 ${g}`)));
+ const AC={"공모전·대외활동":["기회"],"진로 체험":["체험"],"자기계발":["자기계발"],"장학금·지원":["지원"]};
+ p.ac.forEach(a=>(AC[a]||[]).forEach(t=>D.filter(e=>e.t===t).forEach(e=>add(e,`관심 활동 ${a}`))));
+ if(p.dp.length||p.jb.length||p.fi.length||p.rg.length)D.filter(e=>e.t==="일정"&&stat(e).c!=="x").slice(0,2).forEach(e=>add(e,"대입 최신 일정"));
+ sv().map(byN).filter(Boolean).forEach(x=>x.r.forEach(r=>add(byN(r),`저장한 ${x.n}와 연결`)));
+ return out}
+const recs=n=>recsW().slice(0,n).map(x=>x.e);
+const rowW=x=>row(x.e).replace("</small></span>",`</small><small class="why">추천 이유: ${esc(x.why)}</small></span>`);
+const cmpBtn=e=>["학과","대학"].includes(e.t)?`<button class="btn s" data-cmp="${esc(e.n)}">${cp()[e.t].includes(e.n)?"비교 중 ✓":"비교 담기"}</button>`:"";
+const cover=e=>{let h=0;for(const c of e.n)h=(h*31+c.charCodeAt(0))%3;const cap={"학과":"강의실·실습 사진 준비 중","대학":"캠퍼스 사진 준비 중","직업":"업무 환경 사진 준비 중"}[e.t]||"이미지 준비 중";
+ return e.img?`<div class="cv"><img src="${esc(e.img.u)}" alt="${esc(e.n)}" loading="lazy" onerror="this.parentNode.classList.add('g${h}');this.remove()"><small>${esc(e.img.c)}</small></div>`:`<div class="cv g${h}" role="img" aria-label="${esc(e.n)} 대체 이미지"><b>${esc(e.n)}</b><small>${cap} · 출처·사용 권한 확인 후 게재</small></div>`};
+const sim=q=>{const c=[...new Set(q.replace(/\s/g,""))];return D.map(e=>({e,n:c.filter(x=>(e.n+e.k.join("")).includes(x)).length})).filter(x=>x.n>=2).sort((a,b)=>b.n-a.n).slice(0,5).map(x=>x.e.n)};
+const info=e=>[e.ds?"기간 "+per(e):"",e.tg?"대상 "+e.tg:"",e.pr?"주최 "+e.pr:""].filter(Boolean).map(esc).join(" · ");
+const card=e=>`<div class="res"><div class="dh"><h3><a href="#/d/${id(e)}">${esc(e.n)}</a></h3>${star(e)}</div><div>${badge(e)}${sbadge(e)}</div><p>${esc(e.d)}</p><div class="meta">${info(e)?info(e)+"<br>":""}제공: ${esc(e.s)} · <a href="${e.u}" target="_blank" rel="noopener noreferrer">원본 링크</a> · 업데이트 ${UPD}</div>${kws(e)}${cmpBtn(e)}</div>`;
+const sbox=(q="")=>`<div class="sb"><form id="sf" role="search"><input id="sq" value="${esc(q)}" placeholder="검색어 입력 (예: 행정학과)" aria-label="검색어" autocomplete="off"><button class="go" type="submit">검색</button></form><div class="dd" id="dd" hidden></div></div>`;
+const mini=l=>l.map(e=>`<a class="l" href="#/d/${id(e)}">${esc(e.n)} <small class="meta">${e.t}</small></a>`).join("");
+const tile=e=>{let h=0;for(const c of e.n)h=(h*31+c.charCodeAt(0))%3;return `<a class="tile g${h}" href="#/d/${id(e)}"><b>${esc(e.n)}</b><small>${e.f} 계열${DP[e.n]?" · "+esc(DP[e.n].s.slice(0,2).join(", ")):""}</small></a>`};
+const cntT=t=>D.filter(e=>e.t===t).length,cntS=()=>new Set(D.filter(e=>!e.unv&&!["직업","학과","대학"].includes(e.t)).map(e=>e.s)).size;
+function home(){
+ const fs=fi(),T=t=>D.filter(e=>e.t===t),live=e=>stat(e)&&stat(e).c!=="x";
+ const sc=T("일정").filter(live).sort((a,b)=>a.ds.localeCompare(b.ds)),m=sc[0],ms=m&&stat(m);
+ const ops=T("기회").slice().sort((a,b)=>dueKey(a)-dueKey(b)),rec=recs(6);
+ const NEWS=[["교육부","https://www.moe.go.kr","교육 정책·대입 공지"],["한국교육과정평가원","https://www.kice.re.kr","수능 시행계획·공고"],["한국대학교육협의회","https://www.kcue.or.kr","대입 전형 시행계획"]];
+ return `<section class="hero"><h1><span class="bn">NEXORA.</span><span class="sl">더 넓게, 더 깊게.</span></h1><p class="cl">직업 · 학과 · 대학 · 활동</p>${sbox()}
+ <div style="margin-top:16px"><a class="btn big" href="#/analysis">내 성적으로 대학 찾기 →</a><a class="btn s big" href="#/profile">진학 프로필 입력</a></div>
+ <div class="kwrow"><span>인기 검색어 <small>(예시)</small></span>${POP.map(x=>`<a href="#/s/${enc(x)}/">${x}</a>`).join("")}</div>
+ <div class="kwrow"><span>관심사로 시작</span>${INT.map(x=>`<a href="#/i/${enc(x[0])}/">${x[0]}</a>`).join("")}</div>
+ <div class="kwrow"><span>관심 분야</span>${FI.map(x=>`<a href="#/f/${enc(x)}/">${x} 계열</a>`).join("")}</div>
+ <div class="stats" aria-label="데이터 현황"><div><b>${cntT("학과")}</b>학과 상세</div><div><b>${cntT("대학")}</b>대학</div><div><b>${cntT("직업")}</b>직업</div><div><b>${cntS()}</b>공식 출처</div></div></section>
+ ${dash()}
+ <section class="sec" style="margin-top:36px"><div class="sh2"><h2>대학 피라미드</h2><small>참고용 분류</small></div>${pyr()}<div style="text-align:center"><a class="btn" href="#/pyramid">대학 탐색 · 입결 비교</a></div></section>
+${(()=>{const l=ls.get("rv",[]).map(byN).filter(Boolean);return l.length?`<section class="sec" style="margin-top:36px"><div class="sh2"><h2>최근 본 정보</h2></div><div class="kwrow">${l.map(e=>`<a href="#/d/${id(e)}">${esc(e.n)}</a>`).join("")}</div></section>`:""})()}
+ <section class="sec"><div class="sh2"><h2>이번 주 주요 정보</h2><small>기준일 ${UPD}</small></div><div class="feat">
+ <div class="fm">${m?`<p class="lab">${esc(m.pr)} · ${per(m)}</p><div class="dday">${ms.d||"진행 중"}</div><h3><a href="#/d/${id(m)}" style="text-decoration:none">${esc(m.n)}</a></h3><p class="meta">${esc(m.d)}</p><div style="margin-top:16px">${sc.slice(1,4).map(row).join("")}</div>`:`<p class="meta">예정된 일정 없음</p>`}</div>
+ <div class="fs"><p class="lab">공모전 · 대외활동</p>${ops.map(row).join("")}</div></div></section>
+ <section class="sec"><div class="sh2"><h2>탐색 4단계</h2></div><div class="steps"><a href="#/d/${enc("커리어넷 진로심리검사")}"><small>1</small><b>나 알아보기</b><span>진로심리검사</span></a><a href="#/t/학과"><small>2</small><b>학과 탐색</b><span>전공 · 과목 · 직업</span></a><a href="#/compare"><small>3</small><b>대학 비교</b><span>지역 · 유형</span></a><a href="#/g/${enc("대학·입시")}/${enc("일정")}"><small>4</small><b>일정 확인</b><span>수능 · 정시</span></a></div></section>
+ <section class="sec"><div class="sh2"><h2>학과 탐색</h2><small><a href="#/t/학과">전체 보기</a></small></div><div class="tiles">${T("학과").slice(0,9).map(tile).join("")}</div><div class="kwrow"><span>지역별 대학</span>${RG.map(r=>`<a href="#/s/${enc(r+" 대학")}/">${r} ${D.filter(e=>e.rg===r).length}</a>`).join("")}</div></section>
+ <section class="sec two"><div><div class="sh2"><h2>대학 · 학과 추천</h2><small>${fs.length?"관심 분야 기반":"예시"}</small></div>${(fs.length?recsW().filter(x=>x.e.t!=="자료").slice(0,6).map(rowW):T("학과").slice(0,5).map(row)).join("")||`<div class="notice">추천 정보 없음</div>`}${fs.length?"":`<div class="notice">관심 분야 설정 시 맞춤 추천 · <a href="#/saved">관심 분야 설정</a></div>`}<div class="kwrow">${T("대학").slice(0,6).map(e=>`<a href="#/d/${id(e)}">${e.n}</a>`).join("")}<a href="#/g/${enc("대학·입시")}/${enc("대학")}">대학 전체</a></div></div>
+ <div><div class="sh2"><h2>진로 체험</h2></div>${T("체험").map(row).join("")}<div class="sh2" style="margin-top:36px"><h2>장학금 · 청소년 지원</h2></div>${T("지원").map(row).join("")}</div></section>
+ <section class="sec two"><div><div class="sh2"><h2>자격증 · 역량 개발</h2></div>${T("자기계발").map(row).join("")}</div>
+ <div><div class="sh2"><h2>최신 교육 소식</h2></div><p class="meta" style="margin:8px 0 0">공식 공지 확인</p>${NEWS.map(n=>`<a class="row" href="${n[1]}" target="_blank" rel="noopener noreferrer"><span><b>${n[0]}</b><small>${n[2]}</small></span><span class="stt s">공식</span></a>`).join("")}</div></section>`;
+}
+let F={sort:"rel",rg:"",kd:"",open:false,fd:"",n:20};
+function results(q,ty,gr,fld,ttl){
+ const G=gr&&GR[gr],all=(q.trim()?search(q):D.map(e=>({e,s:1}))).filter(({e})=>(!G||G.includes(e.t))&&(!fld||e.f===fld));let t=ty||"";
+ const cnt={};all.forEach(({e})=>cnt[e.t]=(cnt[e.t]||0)+1);
+ let L=all.filter(({e})=>!t||e.t===t);
+ if(t==="대학")L=L.filter(({e})=>(!F.rg||e.rg===F.rg)&&(!F.kd||e.kd===F.kd));
+ if(F.fd)L=L.filter(({e})=>e.f===F.fd);
+ if(F.open)L=L.filter(({e})=>!stat(e)||stat(e).c!=="x");
+ const tot=L.length;
+ if(F.sort==="due")L=L.slice().sort((a,b)=>dueKey(a.e)-dueKey(b.e));
+ if(F.sort==="name")L=L.slice().sort((a,b)=>a.e.n.localeCompare(b.e.n,"ko"));
+ L=L.slice(0,F.n);
+ const base=gr?`#/g/${enc(gr)}/`:fld?`#/f/${enc(fld)}/`:`#/s/${enc(q)}/`,types=G||TY;
+ const tabs=`<div class="tabs"><a class="chip ${!t?"on":""}" href="${base}">전체 ${all.length}</a>${types.map(x=>`<a class="chip ${t===x?"on":""}" href="${base}${enc(x)}">${x} ${cnt[x]||0}</a>`).join("")}</div>`;
+ const so=(v,l)=>`<option value="${v}" ${F.sort===v?"selected":""}>${l}</option>`;
+ const bar=`<div class="bar"><label>정렬 <select id="so">${so("rel","관련도순")}${so("due","마감 임박순")}${so("name","이름순")}</select></label><select id="ffd" aria-label="분야"><option value="">전체 분야</option>${FI.map(r=>`<option ${F.fd===r?"selected":""}>${r}</option>`).join("")}</select><label><input type="checkbox" id="ho" ${F.open?"checked":""}> 마감 제외</label>${t==="대학"?`<select id="frg" aria-label="지역"><option value="">전체 지역</option>${RG.map(r=>`<option ${F.rg===r?"selected":""}>${r}</option>`).join("")}</select><select id="fkd" aria-label="유형"><option value="">전체 유형</option>${["국립","공립","사립","과학기술원"].map(r=>`<option ${F.kd===r?"selected":""}>${r}</option>`).join("")}</select>`:""}</div>`;
+ const sg=q?sim(q):[];
+ const body=L.length?L.map(({e})=>card(e)).join(""):`<div class="empty"><b>검색 결과 없음${q?`: ‘${esc(q)}’`:""}</b><p class="meta" style="margin:8px 0 4px">유사 검색어</p><div class="ex">${(sg.length?sg:POP).map(x=>`<a class="chip" href="#/s/${enc(x)}/">${esc(x)}</a>`).join("")}</div><p class="meta" style="margin-top:14px">카테고리 · ${CATS.map(c=>`<a href="${c[3]}">${c[1]}</a>`).join(" · ")}</p>${q?`<a class="btn s" target="_blank" rel="noopener noreferrer" href="${gs(q+" 진로")}">웹 검색</a>`:""}</div>`;
+ const title=ttl?esc(ttl):q?`‘${esc(q)}’ 검색 결과`:gr?esc(gr):fld?`${esc(fld)} 계열`:`${t||"전체"} 탐색`;
+ return `${sbox(q)}<h2 style="margin-top:32px;font-size:22px">${title}</h2>${tabs}${bar}<div id="rl">${body}</div>${tot>F.n?`<button class="btn s" data-more>더 보기 (${tot-F.n})</button>`:""}`;
+}
+function detail(n){
+ const e=byN(n);if(!e)return `<div class="empty">정보 없음 · <a href="#/">홈</a></div>`;ls.set("rv",[n,...ls.get("rv",[]).filter(x=>x!==n)].slice(0,6));if(e.t==="학과"&&DP[e.n])return deptDetail(e);if(e.t==="대학")return univDetail(e);
+ const ex=e.t==="학과"?`<a class="btn s" target="_blank" rel="noopener noreferrer" href="${gs(n+" 개설 대학")}">개설 대학 찾기</a><a class="btn s" href="#/g/${enc("대학·입시")}/${enc("대학")}">대학 탐색</a>`:e.t==="대학"?`<a class="btn s" target="_blank" rel="noopener noreferrer" href="${gs(n+" 입학처")}">입학처 찾기</a><a class="btn s" target="_blank" rel="noopener noreferrer" href="${gs(n+" 학과 안내")}">학과 안내 찾기</a>`:"";
+ const rows=[["모집 기간",e.ds&&per(e)],["모집 대상",e.tg],["주최 기관",e.pr],["소재지·유형",e.rg&&e.rg+" · "+e.kd],["관련 분야",e.f&&e.f+" 계열"]].filter(r=>r[1]);
+ return `${sbox()}<p class="meta" style="margin-top:24px"><a href="javascript:history.back()">← 뒤로</a></p>${cover(e)}<div class="dh"><h1 style="margin:4px 0;font-size:30px">${esc(e.n)}</h1>${star(e)}</div><div>${badge(e)}${sbadge(e)}</div><p style="font-size:17px">${esc(e.d)}</p>
+ ${rows.length?`<h2>기본 정보</h2><div class="box">${rows.map(r=>`<div style="display:flex;gap:16px;padding:8px 0;border-bottom:1px solid var(--line)"><span class="meta" style="min-width:78px">${r[0]}</span><span>${esc(r[1])}</span></div>`).join("")}</div>`:""}
+ ${e.c?`<h2>${e.t==="일정"?"안내":"자격·진로 경로"} <i>참고용</i></h2><p>${esc(e.c)}</p>`:""}${!e.ds&&stat(e)?`<p class="meta">상시 운영. 모집 일정은 공식 사이트 확인.</p>`:""}
+ <h2>주요 키워드</h2>${kws(e)}<h2>출처</h2><p>${esc(e.s)}${e.unv?" (비공식)":""} · 업데이트 ${UPD}</p><a class="btn" href="${e.u}" target="_blank" rel="noopener noreferrer">원본 사이트</a>${ex}
+ <h2>관련 정보</h2><div class="box">${mini(relFor(e))}</div><p class="note">요약은 참고용. 정확한 내용은 공식 출처 확인.</p>`;
+}
+const li=a=>a.map(x=>`<li>${esc(x)}</li>`).join(""),ext=(u,t,c="btn s")=>`<a class="${c}" href="${u}" target="_blank" rel="noopener noreferrer">${t}</a>`;
+const shr=`<button class="btn s" data-copy>링크 복사</button><button class="btn s" data-print>인쇄</button>`;
+const NOTE=`<p class="note">일반적인 예시이며 대학마다 다릅니다. 이미지는 출처와 사용 권한 확인 후 게재 예정. 최신 정보는 공식 출처 확인.</p>`;
+function deptDetail(e){const d=DP[e.n],cur=DR===null?(pf().rg[0]||""):DR,us=D.filter(x=>x.t==="대학"&&(!cur||x.rg===cur));
+ return `${sbox()}<nav class="bc" aria-label="경로"><a href="#/">홈</a> › <a href="#/t/${enc(e.t)}">${e.t==="학과"?"학과 정보":"대학 정보"}</a> › ${esc(e.n)}</nav><div class="dl"><aside id="toc" class="toc" aria-label="목차"></aside><div class="dm">${cover(e)}
+ <div class="dh"><h1 style="margin:4px 0;font-size:30px">${esc(e.n)}</h1>${star(e)}</div><div>${badge(e)}<span class="bd">${e.f} 계열</span></div><p style="font-size:17px">${esc(e.d)}</p><div class="facts"><div><small>계열</small>${e.f}</div><div><small>대표 과목</small>${esc(d.s.slice(0,3).join(" · "))}</div><div><small>연결 직업</small>${esc(e.r.filter(x=>byN(x)&&byN(x).t==="직업").join(" · ")||"-")}</div></div><div>${cmpBtn(e)}${ext(e.u,"원본 사이트")}<a class="btn s" href="#/dr/${enc(e.n)}">대학별 입결 보기</a>${shr}</div>
+ <h2>교육 목표</h2><p>${esc(d.g)}</p>
+ <h2>배우는 전공 과목</h2><div class="ex" style="margin-top:0">${d.s.map(x=>`<a class="chip" href="#/s/${enc(x)}/">${esc(x)}</a>`).join("")}</div>
+ <h2>학년별 교육과정 예시 <i>대학별 상이</i></h2><ul class="pl">${li(d.y)}</ul>
+ <h2>수업 · 실습</h2><p>${esc(d.p)}</p><h2>필요한 역량 · 적성</h2><p>${esc(d.k)}</p>
+ <h2>고교에서 준비하기 <i>예시</i></h2><p>${esc(HS[e.n]||"")}</p><p class="meta">교과 영역 수준의 예시. 대학별 권장 과목은 입학처 확인. 과목명은 교육과정(2015·2022 개정)에 따라 다름.</p>
+ <h2>관련 직업 · 진출 분야</h2><div class="box">${mini(e.r.map(byN).filter(Boolean))}</div><p>${esc(d.a)}</p>
+ <h2>졸업 후 진로</h2><p>${esc(d.af)}</p>
+ <h2>관련 자격증 · 추천 활동</h2><p><b>자격</b> · ${esc(d.c)}</p><p><b>활동</b> · ${esc(d.ac)}</p>
+ <h2>개설 대학 확인</h2><p class="meta">개설 여부는 검증된 데이터가 없어 대학별 확인 링크로 연결. 지역 선택 가능.</p>
+ <div class="bar"><select id="dr" aria-label="지역"><option value="">전체 지역</option>${RG.map(r=>`<option ${cur===r?"selected":""}>${r}</option>`).join("")}</select></div>
+ <div class="box">${us.map(x=>`<div class="ulist" style="display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)"><a href="#/d/${id(x)}" style="text-decoration:none">${esc(x.n)} <small class="meta">${x.rg} · ${x.kd}</small></a>${ext(gs(x.n+" "+e.n),"개설 확인","chip")}</div>`).join("")}</div>
+ <h2>유사 · 관련 학과</h2><div class="ex" style="margin-top:0">${d.sim.map(x=>byN(x)?`<a class="chip" href="#/d/${enc(x)}">${x}</a>`:ext(gs(x+" 학과"),x+" ↗","chip")).join("")}</div>
+ <h2>함께 보면 좋은 서비스</h2><div class="box">${mini(["커리어넷 진로심리검사","커리어넷 진로상담","대학알리미"].map(byN).filter(Boolean))}</div>
+ <h2>출처</h2><p>참고 요약 · 출처 ${esc(e.s)} · 업데이트 ${UPD}</p>${NOTE}</div></div>`}
+function univDetail(e){const sim=D.filter(x=>x.t==="대학"&&x!==e&&(x.rg===e.rg||x.kd===e.kd)).sort((a,b)=>(b.rg===e.rg)-(a.rg===e.rg)).slice(0,6);
+ return `${sbox()}<nav class="bc" aria-label="경로"><a href="#/">홈</a> › <a href="#/t/${enc(e.t)}">${e.t==="학과"?"학과 정보":"대학 정보"}</a> › ${esc(e.n)}</nav><div class="dl"><aside id="toc" class="toc" aria-label="목차"></aside><div class="dm">${cover(e)}
+ ${ulogo(e)}<div class="dh"><h1 style="margin:4px 0;font-size:30px">${esc(e.n)}</h1>${star(e)}</div><div>${badge(e)}</div><p style="font-size:17px">${esc(e.d)}</p><div class="facts"><div><small>지역</small>${e.rg}</div><div><small>유형</small>${e.kd}</div><div><small>같은 지역 대학</small>${D.filter(x=>x.rg===e.rg&&x!==e).length}곳</div></div><div>${cmpBtn(e)}${shr}</div>
+ <h2>기본 정보</h2><div class="box"><div style="padding:8px 0;border-bottom:1px solid var(--line)"><span class="meta">지역</span> · ${e.rg}</div><div style="padding:8px 0"><span class="meta">유형</span> · ${e.kd}</div></div><p class="meta">캠퍼스가 여러 지역에 있는 대학은 표시된 지역과 다를 수 있음. 공식 안내 확인.</p>
+ <h2>공식 링크</h2><div>${ext(gs(e.n+" 공식 홈페이지"),"홈페이지 검색")}${ext(gs(e.n+" 입학처"),"입학처 검색")}${ext(e.u,"대학알리미")}</div>
+ ${uprof(e)}${uadm(e)}
+ <h2>단과대학 · 개설 학과</h2><p class="meta">단과대학과 개설 학과의 공식 목록은 대학 홈페이지와 대학알리미에서 확인. 아래는 NEXORA 학과 정보와 연결.</p>
+ <div class="box">${D.filter(x=>x.t==="학과").map(x=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)"><a href="#/d/${id(x)}" style="text-decoration:none">${esc(x.n)}</a>${ext(gs(e.n+" "+x.n),"개설 확인","chip")}</div>`).join("")}</div>
+ <h2>입학 전형</h2><p class="meta">전형은 매년 변경. 최신 모집요강은 입학처와 어디가에서 확인.</p><div>${ext(gs(e.n+" 입시 전형"),"전형 검색")}${ext("https://www.adiga.kr","어디가")}</div>
+ <h2>장학금 · 기숙사</h2><div>${ext(gs(e.n+" 장학금"),"장학금 검색")}${ext(gs(e.n+" 기숙사"),"기숙사 검색")}${ext("https://www.kosaf.go.kr","한국장학재단")}</div>
+ <h2>비슷한 대학</h2><div class="box">${mini(sim)}</div>
+ <h2>출처</h2><p>참고 요약 · 출처 ${esc(e.s)} · 업데이트 ${UPD}</p>${NOTE}</div></div>`}
+function about(){return `<h1 style="margin-top:36px">서비스 안내</h1>
+ <h2>NEXORA</h2><p>더 넓게, 더 깊게. 학과·대학·직업·활동 정보를 한곳에서 탐색하고 공식 출처로 연결하는 진로 탐색 서비스.</p>
+ <h2>정보 구분</h2><div class="box"><div style="padding:10px 0;border-bottom:1px solid var(--line)"><span class="bd o">공식 출처</span> 공식 기관 서비스와 공고로 연결. 일정은 공식 공고 기준.</div><div style="padding:10px 0;border-bottom:1px solid var(--line)"><span class="bd o">참고 요약</span> 학과·직업·대학에 대한 일반 정보 요약. 대학마다 다를 수 있어 공식 자료 확인 필요.</div><div style="padding:10px 0"><span class="bd w">비공식 출처</span> 외부 정보 사이트 기준. 주최 측 확인 필요.</div></div>
+ <h2>업데이트</h2><p>정보 기준일 ${UPD}. 입시 일정은 변경될 수 있어 공식 공고 확인. 90일이 지난 정보는 "오래된 정보"로 표시.</p>
+ <h2>개인정보</h2><p>회원가입과 로그인 없음. 관심 설정, 저장, 비교, 최근 본 정보는 이 기기의 브라우저에만 저장되며 외부 서버로 전송되지 않습니다. 글꼴은 Google Fonts에서 불러오므로 접속 시 글꼴 서버에 접속 정보가 전달될 수 있습니다. 마이페이지에서 저장 정보를 삭제할 수 있습니다.</p>
+ <h2>제공하지 않는 정보</h2><p>대학별 상세 모집요강, 합격 예측, 성적 상담, 실시간 공모전 수집. 해당 정보는 입학처, 어디가, 대학알리미, 커리어넷에서 확인.</p>
+ <h2>이용 방법</h2><div class="ex" style="margin-top:0">${["행정학과","공무원이 되려면","서울 대학","봉사활동","장학금"].map(x=>`<a class="chip" href="#/s/${enc(x)}/">${x}</a>`).join("")}</div>`}
+function compare(){const c=cp(),es=c[CT].map(byN).filter(Boolean);
+ const tabs=`<div class="tabs">${["학과","대학"].map(t=>`<button class="chip ${CT===t?"on":""}" data-ct="${t}">${t} 비교 (${c[t].length})</button>`).join("")}</div>`;
+ if(!es.length)return `<h1 style="margin-top:36px">비교</h1>${tabs}<div class="notice">비교 목록 없음. 학과·대학의 "비교 담기"로 최대 3개 선택. 마이페이지에서 저장 항목 일괄 비교 가능.</div>`;
+ const R=CT==="학과"?[["계열",e=>e.f+" 계열"],["소개",e=>esc(e.d)],["교육 목표",e=>esc(DP[e.n].g)],["핵심 과목",e=>esc(DP[e.n].s.slice(0,5).join(", "))],["필요 역량",e=>esc(DP[e.n].k)],["고교 준비 과목",e=>esc(HS[e.n]||"-")],["진출 분야",e=>esc(DP[e.n].a)],["졸업 후 진로",e=>esc(DP[e.n].af)],["자격증",e=>esc(DP[e.n].c)],["관련 직업",e=>esc(e.r.join(", "))]]
+ :UROWS();
+ return `<h1 style="margin-top:36px">비교</h1>${tabs}<div class="cmpw"><table class="cmp"><thead><tr><th></th>${es.map(e=>`<th><a href="#/d/${id(e)}">${esc(e.n)}</a><br><button class="chip" data-cmp="${esc(e.n)}">제거</button></th>`).join("")}</tr></thead><tbody>${R.map(r=>`<tr><td>${r[0]}</td>${es.map(e=>`<td>${r[1](e)}</td>`).join("")}</tr>`).join("")}</tbody></table></div><p class="note" style="margin-top:20px"><button class="btn s" data-cmpclr>비교 목록 비우기</button> 출처 ${esc(es[0].s)} · 업데이트 ${UPD}</p>`}
+function chips(k,items,l){const a=pf()[k];return `<p class="lab" style="margin-top:18px">${l}</p><div class="ex" style="margin-top:0">${items.map(x=>`<button class="chip ${a.includes(x)?"on":""}" data-pf="${k}:${esc(x)}" aria-pressed="${a.includes(x)}">${esc(x)}</button>`).join("")}</div>`}
+function saved(){const sl=sv().map(byN).filter(Boolean),r=recsW();
+ return `<h1 style="margin-top:36px">관심 대학 · 학과</h1><h2>관심 설정</h2>${chips("fi",FI,"관심 계열")}${chips("dp",D.filter(e=>e.t==="학과").map(e=>e.n),"관심 학과")}${chips("rg",RG,"희망 대학 지역")}${chips("jb",D.filter(e=>e.t==="직업").map(e=>e.n),"관심 직업")}${chips("ac",["공모전·대외활동","진로 체험","자기계발","장학금·지원"],"관심 활동")}
+ <h2>맞춤 추천</h2>${r.length?r.map(rowW).join(""):`<div class="notice">관심 설정 또는 정보 저장 시 추천 제공</div>`}
+ <h2>저장한 정보</h2>${sl.length?TY.map(t=>{const l=sl.filter(e=>e.t===t);return l.length?`<p class="lab" style="margin-top:20px">${t}</p>${l.map(card).join("")}`:""}).join(""):`<div class="notice">저장한 정보 없음. ☆로 관심 정보 저장</div>`}
+ <h2>비교</h2><button class="btn s" data-cmpsaved>저장한 학과·대학 비교</button><a class="btn s" href="#/compare">비교 보기</a>
+ <h2>데이터 관리</h2><p class="meta">저장·설정·진학 프로필은 이 기기의 브라우저에만 보관되며 외부로 전송되지 않습니다. 로그인 기능은 제공하지 않습니다.</p><button class="btn s" data-wipe>저장 정보 전체 삭제</button>`;
+}
+const NAV=[["홈","#/",""],["대학 피라미드","#/pyramid","pyramid"],["나의 진학 분석","#/analysis","analysis"],["대학 찾기","#/t/"+enc("대학"),"대학"],["학과 탐색","#/t/"+enc("학과"),"학과"],["대학 비교","#/compare","compare"],["학생부 분석","#/record","record"],["진학 로드맵","#/roadmap","roadmap"],["입시 정보","#/admission","admission"],["관심 대학·학과","#/saved","saved"]];
+const LOGO=`<a class="logo" href="#/" aria-label="NEXORA 홈"><svg width="24" height="24" viewBox="0 0 22 22" aria-hidden="true"><rect width="22" height="22" rx="4" fill="#0e2354"/><path d="M6 16V6l10 10V6" fill="none" stroke="#fff" stroke-width="2"/></svg><span class="wm">NEXORA</span><small class="tg">더 넓게, 더 깊게.</small></a>`;
+const FT=`<div class="fi"><div><b class="wm">NEXORA</b><br>더 넓게, 더 깊게.<br><br>학과 · 대학 · 직업 · 활동 정보 통합 검색</div><div><p class="lab">탐색</p><div class="kwrow" style="margin:0;flex-direction:column;gap:6px">${CATS.map(c=>`<a href="${c[3]}">${c[1]}</a>`).join("")}<a href="#/compare">비교</a><a href="#/saved">마이페이지</a><a href="#/about">서비스 안내</a></div></div><div><p class="lab">공식 사이트</p><div class="kwrow" style="margin:0;flex-direction:column;gap:6px"><a href="https://www.career.go.kr" target="_blank" rel="noopener noreferrer">커리어넷</a><a href="https://www.adiga.kr" target="_blank" rel="noopener noreferrer">어디가</a><a href="https://www.academyinfo.go.kr" target="_blank" rel="noopener noreferrer">대학알리미</a><a href="https://www.kosaf.go.kr" target="_blank" rel="noopener noreferrer">한국장학재단</a></div></div><div>공식 출처 우선 표시. 참고 요약과 비공식 출처는 별도 표시.<br>정보 기준일 ${UPD}<br>저장 정보는 이 기기에만 보관</div></div>`;
+function buildToc(){const t=$("#toc");if(!t||!document.querySelectorAll)return;const hs=[...document.querySelectorAll("#app .dm h2")];t.innerHTML=`<p>목차</p>`+hs.map((h,i)=>{h.id="h"+i;return `<button data-sc="h${i}">${esc(h.childNodes[0].textContent.trim())}</button>`}).join("")}
+function parts(){return location.hash.slice(1).split("/").map(x=>{try{return decodeURIComponent(x)}catch(e){return x}})}
+function view(p){const v=p[1]||"";
+ if(v==="s")return results(p[2]||"",p[3]||"");if(v==="t")return results("",p[2]||"");
+ if(v==="g")return results("",p[3]||"",p[2]);if(v==="f")return results("",p[3]||"","",p[2]);
+ if(v==="compare")return compare();if(v==="pyramid")return pyramidPage();if(v==="grp")return grpPage(p[2]||"");if(v==="dr")return drPage(p[2]||"");if(v==="analysis")return analysis();if(v==="profile")return profile();if(v==="sim")return simPage();if(v==="record")return recordPage();if(v==="roadmap")return roadmap();if(v==="admission"||v==="glossary")return admission();if(v==="data")return dataPage();if(v==="about")return about();if(v==="i"){const it=INT.find(x=>x[0]===p[2]);return it?results(it[1],p[3]||"","","",it[0]+" 관련 학과·직업"):home()}if(v==="d")return detail(p[2]||"");if(v==="saved")return saved();return home()}
+function route(){
+ const app=$("#app"),p=parts(),v=p[1]||"";
+ $("#nav").innerHTML=LOGO+NAV.map(m=>`<a class="m ${(m[2]===""&&!v)||v===m[2]||(v==="t"&&p[2]===m[2])||((v==="profile"||v==="sim")&&m[2]==="analysis")||((v==="data"||v==="glossary")&&m[2]==="admission")||((v==="grp"||v==="dr")&&m[2]==="pyramid")?"on":""}" href="${m[1]}">${m[2]==="compare"&&cn()?`비교 (${cn()})`:m[0]}</a>`).join("");
+ $("#tb").innerHTML=[["홈","#/",!v],["내 분석","#/analysis",["analysis","profile","sim"].includes(v)],["대학","#/pyramid",["pyramid","grp","dr"].includes(v)||(v==="t"&&p[2]==="대학")],["학과","#/t/"+enc("학과"),v==="t"&&p[2]==="학과"],["관심","#/saved",v==="saved"]].map(x=>`<a href="${x[1]}" class="${x[2]?"on":""}">${x[0]}</a>`).join("");
+ if(!KEEP)app.innerHTML=`<div style="padding-top:36px" aria-busy="true"><div class="sk" style="width:40%"></div><div class="sk"></div><div class="sk" style="width:80%"></div></div>`;$("#ft").innerHTML=FT;
+ setTimeout(()=>{try{app.innerHTML=view(p);if($("#sq"))initSearch();buildToc();if(KEEP)KEEP=false;else window.scrollTo(0,0);const nm={s:p[2],g:p[2],f:p[2]&&p[2]+" 계열",d:p[2],t:p[2],saved:"관심 대학·학과",about:"서비스 안내",compare:"대학 비교",i:p[2],analysis:"나의 진학 분석",pyramid:"대학 피라미드",grp:"대학군 비교",dr:"학과별 입결",profile:"진학 프로필",sim:"내신 시뮬레이션",record:"학생부 분석",roadmap:"진학 로드맵",admission:"입시 정보",data:"데이터 관리",glossary:"입시 용어"}[v];document.title=nm?nm+" · NEXORA":"NEXORA — 더 넓게, 더 깊게."}catch(err){app.innerHTML=`<div class="empty" style="margin-top:32px">오류 발생 <button class="btn s" data-retry>다시 시도</button> <a href="#/">홈</a></div>`;console.error(err)}},60);
+}
+function go(q){q=q.trim();if(!q)return;ls.set("rc",[q,...ls.get("rc",[]).filter(x=>x!==q)].slice(0,8));location.hash="#/s/"+enc(q)+"/"}
+function initSearch(){
+ const i=$("#sq"),dd=$("#dd");if(!i)return;let idx=-1;
+ const show=()=>{const v=i.value.trim();let h="";
+  if(!v){const rc=ls.get("rc",[]);if(rc.length)h+=`<div class="sh">최근 검색어<button data-clr type="button">전체 삭제</button></div>`+rc.map(x=>`<div class="si" data-q="${esc(x)}">🕘 ${esc(x)}<b data-del="${esc(x)}" aria-label="삭제">✕</b></div>`).join("");h+=`<div class="sh">인기 검색어<i>예시</i></div>`+POP.map(x=>`<div class="si" data-q="${esc(x)}">🔎 ${x}</div>`).join("")}
+  else{const m=D.filter(e=>e.n.includes(v)||e.k.some(k=>k.includes(v))).slice(0,6);h=m.map(e=>`<div class="si" data-q="${esc(e.n)}">🔎 ${esc(e.n)}<small>${e.t}</small></div>`).join("")+`<div class="sh">관련 검색어</div>`+[" 관련 직업"," 관련 대학"," 진로 체험"].map(x=>`<div class="si" data-q="${esc(v+x)}">↗ ${esc(v+x)}</div>`).join("")}
+  dd.innerHTML=h;dd.hidden=false;idx=-1};
+ i.addEventListener("focus",show);i.addEventListener("input",show);
+ i.addEventListener("keydown",e=>{const it=[...dd.querySelectorAll(".si")];if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();idx=(idx+(e.key==="ArrowDown"?1:-1)+it.length)%it.length;it.forEach((x,k)=>x.classList.toggle("sel",k===idx));if(it[idx])i.value=it[idx].dataset.q}else if(e.key==="Escape")dd.hidden=true});
+ $("#sf").addEventListener("submit",e=>{e.preventDefault();go(i.value)});
+}
+document.addEventListener("click",e=>{const t=e.target;
+ if(t.closest("[data-skip]")){e.preventDefault();$("#app").focus();return}
+ if(t.closest("#up")){window.scrollTo({top:0});return}
+ if(t.closest("[data-more]")){F.n+=20;KEEP=true;route();return}
+ if(t.closest("[data-print]")){window.print();return}
+ const cb=t.closest("[data-copy]");if(cb){const u=location.href,old=cb.textContent,ok=()=>{cb.textContent="복사됨";setTimeout(()=>cb.textContent=old,1200)};(navigator.clipboard?navigator.clipboard.writeText(u).then(ok,()=>prompt("주소 복사",u)):Promise.reject()).catch(()=>prompt("주소 복사",u));return}
+ const sc=t.closest("[data-sc]");if(sc){const el=document.getElementById(sc.dataset.sc);if(el)el.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"start"});return}
+ if(t.closest("[data-retry]")){route();return}
+ if(t.closest("[data-wipe]")){if(confirm("저장 정보와 검색 기록을 모두 삭제합니다.")){ls.set("sv",[]);ls.set("fi",[]);ls.set("rc",[]);ls.set("pf",{});ls.set("cp",{});ls.set("rv",[]);["prof","adm","ud","rm","tg","rec","recsave","mg"].forEach(k=>ls.set(k,null));route()}return}
+ const del=t.closest("[data-del]");if(del){e.stopPropagation();ls.set("rc",ls.get("rc",[]).filter(x=>x!==del.dataset.del));$("#sq").dispatchEvent(new Event("focus"));return}
+ if(t.closest("[data-clr]")){ls.set("rc",[]);$("#sq").dispatchEvent(new Event("focus"));return}
+ const q=t.closest("[data-q]");if(q){go(q.dataset.q);return}
+ const s=t.closest("[data-s]");if(s){const n=s.dataset.s,a=sv();ls.set("sv",a.includes(n)?a.filter(x=>x!==n):[...a,n]);KEEP=true;route();return}
+ const pfb=t.closest("[data-pf]");if(pfb){const i=pfb.dataset.pf.indexOf(":"),k=pfb.dataset.pf.slice(0,i),v=pfb.dataset.pf.slice(i+1),p=pf();p[k]=p[k].includes(v)?p[k].filter(x=>x!==v):[...p[k],v];ls.set("pf",p);KEEP=true;route();return}
+ const cm=t.closest("[data-cmp]");if(cm){const n=cm.dataset.cmp,e=byN(n),c=cp();if(e){if(c[e.t].includes(n))c[e.t]=c[e.t].filter(x=>x!==n);else if(c[e.t].length>=(e.t==="대학"?4:3)){alert("비교는 최대 "+(e.t==="대학"?4:3)+"개");return}else c[e.t].push(n);ls.set("cp",c);KEEP=true;route()}return}
+ const ct=t.closest("[data-ct]");if(ct){CT=ct.dataset.ct;route();return}
+ if(t.closest("[data-cmpsaved]")){const c=cp();["학과","대학"].forEach(ty=>c[ty]=sv().map(byN).filter(x=>x&&x.t===ty).map(x=>x.n).slice(0,3));ls.set("cp",c);location.hash="#/compare";return}
+ if(t.closest("[data-cmpclr]")){ls.set("cp",{});route();return}
+ const f=t.closest("[data-f]");if(f){const n=f.dataset.f,a=fi();ls.set("fi",a.includes(n)?a.filter(x=>x!==n):[...a,n]);route();return}
+ const dd=$("#dd");if(dd&&!t.closest(".sb"))dd.hidden=true});
+document.addEventListener("change",e=>{const t=e.target;if(!["so","frg","fkd","ffd","ho","dr"].includes(t.id))return;
+ if(t.id==="so")F.sort=t.value;if(t.id==="frg")F.rg=t.value;if(t.id==="fkd")F.kd=t.value;if(t.id==="dr")DR=t.value;if(t.id==="ffd")F.fd=t.value;if(t.id==="ho")F.open=t.checked;
+ const sb=$("#sq")?.value;$("#app").innerHTML=view(parts());initSearch();if(sb!=null&&$("#sq"))$("#sq").value=sb});
+window.addEventListener("scroll",()=>{const u=$("#up");if(u)u.hidden=window.scrollY<600},{passive:true});
+window.addEventListener("hashchange",()=>{F={sort:"rel",rg:"",kd:"",open:false,fd:"",n:20};route()});
+/* ===== 진학 분석 모듈 ===== */
+const SEED=null;
+const SEMS=["1-1","1-2","2-1","2-2","3-1"],SUBS=["국어","수학","영어","사회","과학"],SEML={"1-1":"1학년 1학기","1-2":"1학년 2학기","2-1":"2학년 1학기","2-2":"2학년 2학기","3-1":"3학년 1학기"};
+const DEF=()=>({yr:"",cur:"",sc:"",sem:{},sub:{},cs:[{n:"",a:""},{n:"",a:""},{n:"",a:""}],pref:"any",su:{},iv:"any",mn:"any"});
+const prof=()=>{const o=ls.get("prof",null)||{},d=DEF();return{...d,...o,sem:{...o.sem},sub:{...o.sub},su:{...o.su},cs:o.cs||d.cs}};
+const getp=(p,k)=>k.split(".").reduce((a,x)=>a==null?a:a[x],p);
+function setp(k,v){const p=prof(),ks=k.split(".");let o=p;for(let i=0;i<ks.length-1;i++){o=o[ks[i]];if(o==null)return}o[ks[ks.length-1]]=v;ls.set("prof",p)}
+const num=v=>{const x=parseFloat(v);return isNaN(x)?null:x},mean=a=>{a=a.filter(x=>x!=null);return a.length?a.reduce((s,x)=>s+x,0)/a.length:null},f2=x=>x==null?"-":x.toFixed(2);
+const adm=()=>ls.get("adm",null)||(SEED&&SEED.adm)||[],udAll=()=>ls.get("ud",null)||(SEED&&SEED.ud)||{};
+const stem=n=>String(n).replace(/학과$|학부$|전공$|과$/,"");
+function stats(p=prof()){const mx=p.sc==="5"?5:9,ok=v=>{const x=num(v);return x!=null&&x>=1&&x<=mx?x:null},warn=[],sem={},sub={};
+ SEMS.forEach(k=>{const r=p.sem[k];if(r!==undefined&&r!==""&&ok(r)==null)warn.push(SEML[k]+" 값 범위 오류(1~"+mx+")");sem[k]=ok(r)});
+ SUBS.forEach(k=>{const r=p.sub[k];if(r!==undefined&&r!==""&&ok(r)==null)warn.push(k+" 값 범위 오류(1~"+mx+")");sub[k]=ok(r)});
+ return{mx,sem,sub,warn,all:mean(Object.values(sem)),main:SUBS.every(k=>sub[k]!=null)?mean(Object.values(sub)):null,n:Object.values(sem).filter(x=>x!=null).length}}
+function gaps(p=prof(),S=stats(p)){const g=[];if(!p.yr)g.push("현재 학년");if(!p.sc)g.push("등급제(5등급제·9등급제)");if(S.all==null&&S.main==null)g.push("내신 평균(학기별 또는 교과별)");if(!pf().dp.length)g.push("희망 학과");if(!adm().length)g.push("공식 입결 데이터");return g}
+const deptHit=r=>{const d=pf().dp;return d.length?d.some(x=>r.dept.includes(stem(x))||stem(r.dept)===stem(x)):null};
+const URG=n=>{const u=UN.find(x=>x[0]===n);return u?u[1]:""};
+const SUBMAP={"국":"국어","수":"수학","영":"영어","사":"사회","과":"과학"};
+function judge(r,p,S,mg,my0){
+ if(r.type==="종합")return{k:"종합",why:"학생부종합전형은 내신 수치만으로 판단하지 않음. 학생부 분석에서 활동 근거 확인."};
+ if(r.type!=="교과")return{k:"보류",why:"교과·종합 외 전형은 내신 비교 대상이 아님."};
+ if(!p.sc)return{k:"보류",why:"등급제 선택 필요."};
+ if(+r.scale!==+p.sc)return{k:"보류",why:`입결은 ${r.scale}등급제 기준, 입력 성적은 ${p.sc}등급제. 대학별 환산 기준 없이 단순 변환하지 않음.`};
+ const cut=r.c70!=null?r.c70:r.avg;if(cut==null)return{k:"보류",why:"공개 입결 수치(70%컷·평균) 없음. 공식 자료 확인 필요."};
+ const b=(r.basis||"").trim();let my,note="",lab="전체";
+ if(/^[국영수사과\s·,]+$/.test(b)||/주요/.test(b)){const ks=/주요/.test(b)?SUBS:[...b].filter(c=>SUBMAP[c]).map(c=>SUBMAP[c]);lab=ks.join("·");if(my0!==undefined)return{k:"보류",why:"교과별 목표 성적이 없어 시뮬레이션 제외."};if(!ks.every(k=>S.sub[k]!=null))return{k:"보류",why:`반영 교과(${lab}) 성적 입력 필요.`};my=mean(ks.map(k=>S.sub[k]))}
+ else if(!b||/전교과|전 교과|전과목|전체/.test(b)){my=my0!==undefined?my0:S.all;if(my==null)return{k:"보류",why:"학기별 내신 평균 입력 필요."};if(!b)note=" (반영 기준 정보 없음: 전체 평균으로 참고 비교)"}
+ else return{k:"보류",why:`반영 기준 '${b}'을 적용할 수 없음. 대학 환산 방식 확인 필요.`};
+ const d=Math.round((my-cut)*100)/100,k=d<=-mg?"안정":d>=mg?"상향":"적정";
+ return{k,my,cut,d,why:`내 ${lab} 평균 ${f2(my)} · ${r.c70!=null?"70%컷":"평균"} ${f2(cut)} (차이 ${d>0?"+":""}${f2(d)})${note}`}}
+const V=x=>x?esc(x):"확인 필요";
+const VC={"상향":"u","적정":"p","안정":"g","보류":"x","종합":"s"};
+function admCard(r,j){const rg=URG(r.univ),u=byN(r.univ),old=!r.ex&&r.date&&dday(r.date,TODAY)>365,hp=deptHit(r),ud=udAll()[r.univ];
+ const fit=[hp===true?"희망 학과와 일치":hp===false?"희망 학과와 다른 학과":"희망 학과 미설정",rg&&pf().rg.includes(rg)?"희망 지역("+rg+")":"",ud&&(ud.talent||[]).length?"공식 인재상 데이터 있음(학생부 분석에서 연결)":"공식 인재상 데이터 없음"].filter(Boolean).join(" · ");
+ return `<div class="res"><div class="dh"><h3>${u?`<a href="#/d/${enc(r.univ)}">${esc(r.univ)}</a>`:esc(r.univ)} · ${esc(r.dept)}</h3>${u?star(u):""}</div>
+ <div><span class="bd">${esc(r.year)}</span><span class="bd">${esc(r.track)}</span><span class="stt ${VC[j.k]}">${j.k==="종합"?"학종 참고":j.k}</span>${r.ex?`<span class="bd w">가상 예시 · 실제 입결 아님</span>`:""}${old?`<span class="stt x">오래된 입결</span>`:""}</div>
+ <p><b>성적 적합성</b> · ${esc(j.why)}</p><p><b>진로 적합성</b> · ${esc(fit)}</p>
+ <div class="meta">모집 ${V(r.quota)} · 경쟁률 ${V(r.comp)} · 충원 ${V(r.fill)} · 50%컷 ${r.c50==null?"확인 필요":f2(r.c50)} · 70%컷 ${r.c70==null?"확인 필요":f2(r.c70)} · 평균 ${r.avg==null?"확인 필요":f2(r.avg)} · 입결 ${r.scale}등급제<br>반영 ${V(r.basis)} · 수능최저 ${V(r.min)} · 면접 ${V(r.iv)}${r.qual?" · 자격 "+esc(r.qual):""}${r.doc?" · 제출서류 "+esc(r.doc):""}<br>구분 ${kindB(r)} · 지표 기준 ${V(r.base2)}<br>출처 ${V(r.src)} · 확인일 ${V(r.date)}</div></div>`}
+function pSummary(p,S){return `<div class="facts"><div><small>학년 · 교육과정 · 등급제</small>${p.yr?"고"+p.yr:"학년 미입력"} · ${p.cur?p.cur+" 개정":"교육과정 미입력"} · ${p.sc?p.sc+"등급제":"등급제 미선택"}</div><div><small>전체 내신 평균 (${S.n}개 학기)</small>${f2(S.all)}</div><div><small>주요 교과 평균 (국·수·영·사·과)</small>${S.main==null?"5개 교과 입력 시 계산":f2(S.main)}</div></div>`}
+function analysis(){const p=prof(),S=stats(p),g=gaps(p,S),A=adm(),mg=+ls.get("mg",0.3)||0.3,dps=pf().dp;
+ let h=`<h1 style="margin-top:36px">나의 진학 분석</h1><div>${ext("#/profile","프로필 입력·수정","btn").replace(' target="_blank" rel="noopener noreferrer"',"")}<a class="btn s" href="#/sim">내신 시뮬레이션</a><a class="btn s" href="#/record">학생부 분석</a><a class="btn s" href="#/roadmap">진학 로드맵</a></div>`;
+ h+=pSummary(p,S);
+ if(S.warn.length)h+=`<div class="warn">${S.warn.map(esc).join("<br>")}</div>`;
+ if(g.length)h+=`<div class="warn"><b>분석 신뢰도 낮음</b> · 입력 필요 항목: ${g.map(esc).join(", ")}</div>`;
+ if(p.cur&&p.sc&&((p.cur==="2015"&&p.sc==="5")||(p.cur==="2022"&&p.sc==="9")))h+=`<div class="warn">교육과정과 등급제 조합 확인 필요. 2015 개정은 보통 9등급제, 2022 개정은 5등급제(일반선택과목 기준).</div>`;
+ if(!A.length)return h+`<h2>내 성적으로 갈 수 있는 대학</h2><div class="notice"><b>공식 입결 데이터 없음</b> · 상향·적정·안정을 분류하지 않음. 어디가, 대학 입학처, 대학알리미의 공식 입결을 <a href="#/data">데이터 관리</a>에 입력하면 비교 시작. 기능 확인용 가상 예시도 불러올 수 있음.</div><div>${ext("https://www.adiga.kr","어디가")}${ext("https://www.academyinfo.go.kr","대학알리미")}<a class="btn s" href="#/data">데이터 관리</a></div>`;
+ let rows=A.filter(r=>deptHit(r)!==false);const hidden=A.length-rows.length;
+ const res=rows.map(r=>({r,j:judge(r,p,S,mg)}));
+ h+=`<div class="bar" style="margin-top:14px"><label>분류 폭 <select id="mg">${[0.2,0.3,0.5].map(x=>`<option value="${x}" ${mg===x?"selected":""}>±${x}</option>`).join("")}</select></label><span class="meta">상향·적정·안정은 과거 입결과 현재 성적을 비교한 참고 지표(합격 예측 아님). 분류 폭 ±${mg}는 NEXORA의 임의 기준.</span></div>`;
+ if(hidden)h+=`<p class="meta">희망 학과와 다른 입결 ${hidden}건은 제외됨.</p>`;
+ if(!rows.length)h+=`<div class="notice">희망 학과(${esc(dps.join(", "))})에 해당하는 입결 데이터 없음. 공식 자료 확인 필요.</div>`;
+ ["상향","적정","안정"].forEach(k=>{const l=res.filter(x=>x.j.k===k);h+=`<h2>${k} <i>${l.length}건</i></h2>${l.length?l.map(x=>admCard(x.r,x.j)).join(""):`<p class="meta">해당 없음</p>`}`});
+ const jong=res.filter(x=>x.j.k==="종합");h+=`<h2>학생부종합전형 <i>${jong.length}건 · 내신만으로 판단하지 않음</i></h2>${jong.length?jong.map(x=>admCard(x.r,x.j)).join(""):`<p class="meta">해당 없음</p>`}`;
+ const bo=res.filter(x=>x.j.k==="보류");h+=`<h2>판단 보류 <i>${bo.length}건</i></h2>${bo.length?bo.map(x=>admCard(x.r,x.j)).join(""):`<p class="meta">해당 없음</p>`}`;
+ return h+`<p class="note">입결 비교는 사용자가 입력한 데이터 기준. 대학별 교과 반영 방식 전체를 계산하지 않으며 5등급제와 9등급제는 서로 환산하지 않음. 지원 전 대학 공식 모집요강 확인 필요.</p>`}
+let PS=1;
+const fin=(k,l,a="")=>`<label class="fl"><span>${l}</span><input data-fld="${k}" value="${esc(getp(prof(),k)||"")}" ${a}></label>`;
+const sel=(k,l,o)=>`<label class="fl"><span>${l}</span><select data-fld="${k}">${o.map(x=>`<option value="${esc(x[0])}" ${getp(prof(),k)===x[0]?"selected":""}>${esc(x[1])}</option>`).join("")}</select></label>`;
+const NUM='type="number" step="0.01" min="1" max="9" inputmode="decimal"';
+const pchips=(k,items,l)=>{const a=pf()[k];return `<p class="lab" style="margin-top:16px">${l}</p><div class="ex" style="margin-top:0">${items.map(x=>`<button class="chip ${a.includes(x)?"on":""}" data-pf="${k}:${esc(x)}" aria-pressed="${a.includes(x)}">${esc(x)}</button>`).join("")}</div>`};
+function profile(){const p=prof();
+ const tabs=`<div class="tabs">${[["1","1 학업"],["2","2 희망"],["3","3 추가 조건"]].map(x=>`<button class="chip ${PS==x[0]?"on":""}" data-ps="${x[0]}">${x[1]}</button>`).join("")}</div>`;
+ let b="";
+ if(PS==1)b=`<h2>학업 정보</h2><div class="fg">${sel("yr","현재 학년",[["","선택"],["1","고1"],["2","고2"],["3","고3"]])}${sel("cur","적용 교육과정",[["","선택"],["2015","2015 개정"],["2022","2022 개정"]])}${sel("sc","등급제",[["","선택"],["5","5등급제"],["9","9등급제"]])}</div><p class="meta">현재(2026년 11월) 고3은 2015 개정·9등급제, 고1·고2는 2022 개정·5등급제인 경우가 일반적. 학교와 개인 상황에 따라 다를 수 있어 직접 선택.</p>
+ <h2>학기별 내신 평균 <i>입력한 학기만 계산 · 단위수 가중 없음</i></h2><div class="fg">${SEMS.map(k=>fin("sem."+k,SEML[k],NUM)).join("")}</div>
+ <h2>교과별 평균 <i>5개 교과 모두 입력 시 주요 교과 평균 계산</i></h2><div class="fg">${SUBS.map(k=>fin("sub."+k,k,NUM)).join("")}</div>
+ <h2>진로선택과목 성취도</h2><div class="fg">${[0,1,2].map(i=>fin("cs."+i+".n","과목명")+sel("cs."+i+".a","성취도",[["","선택"],["A","A"],["B","B"],["C","C"],["D","D"],["E","E"]])).join("")}</div>`;
+ else if(PS==2)b=`<h2>희망 조건</h2>${pchips("rg",RG,"희망 대학 지역")}${pchips("fi",FI,"희망 계열")}${pchips("dp",D.filter(e=>e.t==="학과").map(e=>e.n),"희망 학과")}<div class="fg" style="margin-top:16px">${sel("pref","선호 전형",[["any","상관없음"],["교과","학생부교과전형"],["종합","학생부종합전형"]])}</div>`;
+ else b=`<h2>추가 조건 <i>선택 입력</i></h2><div class="fg">${fin("su.국","수능 국어 등급","type=number min=1 max=9")}${fin("su.수","수능 수학 등급","type=number min=1 max=9")}${fin("su.영","수능 영어 등급","type=number min=1 max=9")}${fin("su.탐","수능 탐구 등급","type=number min=1 max=9")}</div><div class="fg">${sel("mn","수능 최저학력기준",[["any","상관없음"],["ok","충족 가능"],["unsure","불확실"],["no","충족 어려움(최저 없는 전형 선호)"]])}${sel("iv","면접",[["any","상관없음"],["ok","가능"],["no","불가(면접 없는 전형 선호)"]])}</div>`;
+ const nx=PS<3?`<button class="btn" data-ps="${+PS+1}">다음</button>`:`<a class="btn" href="#/analysis">분석 보기</a>`;
+ return `<h1 style="margin-top:36px">진학 프로필</h1><p class="meta">입력 즉시 이 기기에 저장되며 외부로 전송되지 않음. 언제든 수정 가능.</p>${tabs}${b}<div style="margin-top:20px">${PS>1?`<button class="btn s" data-ps="${PS-1}">이전</button>`:""}${nx}<a class="btn s" href="#/analysis">저장 후 분석 보기</a></div>`}
+const SVGC=(seq,cum,mx)=>{const W=560,H=240,L=40,R=16,T=18,B=34,xs=i=>L+i*(W-L-R)/(seq.length-1),ys=v=>T+(v-1)/(mx-1)*(H-T-B);
+ const grid=[1,...Array.from({length:mx-1},(_,i)=>i+2)].map(v=>`<line x1="${L}" x2="${W-R}" y1="${ys(v)}" y2="${ys(v)}" stroke="#e2e5ea"/><text x="${L-8}" y="${ys(v)+4}" font-size="11" text-anchor="end" fill="#5b6575">${v}</text>`).join("");
+ const pt=(arr,col,dash)=>{const pts=arr.map((v,i)=>v==null?null:[xs(i),ys(v)]).filter(Boolean);return pts.length?`<polyline fill="none" stroke="${col}" stroke-width="2" ${dash?'stroke-dasharray="5 4"':""} points="${pts.map(x=>x.join(",")).join(" ")}"/>`+pts.map(x=>`<circle cx="${x[0]}" cy="${x[1]}" r="3.5" fill="${col}"/>`).join(""):""};
+ const lab=seq.map((x,i)=>`<text x="${xs(i)}" y="${H-12}" font-size="11" text-anchor="middle" fill="#5b6575">${SEML[x.k].replace("학년 ","-").replace("학기","")}</text>`).join("");
+ return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="학기별 내신 변화 그래프. 위쪽이 더 좋은 등급">${grid}${pt(seq.map(x=>x.t==="a"?x.v:null),"#0e2354")}${pt(seq.map(x=>x.t!=="n"?x.v:null),"#1f4fd8",1)}${pt(cum,"#8a94a6",1)}${lab}</svg>`};
+function simPage(){const p=prof(),S=stats(p),tg=ls.get("tg",{}),A=adm(),mg=+ls.get("mg",0.3)||0.3;
+ if(!p.sc||S.n===0)return `<h1 style="margin-top:36px">내신 시뮬레이션</h1><div class="notice">등급제 선택과 학기별 내신 평균 1개 이상 입력 필요. <a href="#/profile">프로필 입력</a></div>`;
+ const seq=SEMS.map(k=>S.sem[k]!=null?{k,v:S.sem[k],t:"a"}:num(tg[k])!=null&&num(tg[k])>=1&&num(tg[k])<=S.mx?{k,v:num(tg[k]),t:"t"}:{k,v:null,t:"n"});
+ const cum=[];let acc=[];seq.forEach(x=>{if(x.v!=null)acc.push(x.v);cum.push(acc.length?mean(acc):null)});
+ const cur=S.all,pj=mean(seq.map(x=>x.v)),miss=SEMS.filter(k=>S.sem[k]==null);
+ let h=`<h1 style="margin-top:36px">내신 시뮬레이션</h1><p class="meta">일반 내신 변화 시뮬레이션. 학기별 평균의 단순 평균으로 계산하며 대학별 환산 기준은 적용하지 않음. ${p.sc}등급제 기준(위쪽이 더 좋은 등급).</p>`;
+ h+=miss.length?`<h2>목표 입력</h2><div class="fg">${miss.map(k=>`<label class="fl"><span>${SEML[k]} 목표 평균</span><input data-tg="${k}" value="${esc(tg[k]||"")}" type="number" step="0.01" min="1" max="${S.mx}" inputmode="decimal"></label>`).join("")}</div>`:`<div class="notice">모든 학기가 입력된 상태. 목표 입력할 학기 없음.</div>`;
+ h+=`<div class="facts"><div><small>현재 전체 평균</small>${f2(cur)}</div><div><small>목표 반영 시 전체 평균</small>${f2(pj)}</div><div><small>변화</small>${cur==null||pj==null?"-":(pj-cur>0?"+":"")+f2(pj-cur)}</div></div>`;
+ h+=`<div class="cmpw">${SVGC(seq,cum,S.mx)}</div><p class="meta">진한 선 · 실제 입력, 파란 점선 · 목표 포함, 회색 점선 · 누적 평균</p>`;
+ h+=`<h2>대학 탐색 결과 비교</h2>`;
+ if(!A.length)return h+`<div class="notice">공식 입결 데이터 없음 · 대학별 비교 불가. <a href="#/data">데이터 관리</a></div>`;
+ const tgt=pj!==cur&&pj!=null;
+ const rows=A.filter(r=>deptHit(r)!==false&&r.type==="교과"&&+r.scale===+p.sc);
+ const list=rows.map(r=>({r,a:judge(r,p,S,mg),b:judge(r,p,S,mg,pj)}));
+ const ok=list.filter(x=>x.a.k!=="보류"&&x.b.k!=="보류"&&!(x.a.k==="보류")),skip=list.length-ok.length;
+ if(!ok.length)return h+`<div class="notice">시뮬레이션 가능한 교과전형 입결 없음. 전교과 반영 입결이 필요하며 주요 교과 반영 전형은 교과별 목표가 없어 제외됨.</div>`;
+ const cnt=k=>[ok.filter(x=>x.a.k===k).length,ok.filter(x=>x.b.k===k).length];
+ h+=`<div class="cmpw"><table class="cmp"><thead><tr><th>구분</th><th>현재</th><th>목표 반영</th></tr></thead><tbody>${["상향","적정","안정"].map(k=>`<tr><td>${k}</td><td>${cnt(k)[0]}건</td><td>${cnt(k)[1]}건</td></tr>`).join("")}</tbody></table></div>`;
+ h+=`<div class="cmpw" style="margin-top:14px"><table class="cmp"><thead><tr><th>대학 · 학과 · 전형</th><th>현재</th><th>목표 반영</th></tr></thead><tbody>${ok.map(x=>`<tr><td>${esc(x.r.univ)} ${esc(x.r.dept)} ${esc(x.r.track)}${x.r.ex?` <span class="bd w">가상 예시</span>`:""}</td><td>${x.a.k}</td><td>${x.b.k}${x.a.k!==x.b.k?" ←변화":""}</td></tr>`).join("")}</tbody></table></div>`;
+ if(skip)h+=`<p class="meta">${skip}건은 비교 불가(등급제 불일치, 주요 교과 반영, 수치 없음 등)로 제외.</p>`;
+ return h+`<p class="note">참고 지표이며 합격 예측이 아님. 대학별 환산 분석은 해당 대학 반영 기준을 입력·확인한 뒤에만 가능.</p>`}
+let RECMEM={se:"",club:"",career:"",inq:""},RA=false;
+const CAP={"학업 역량":["탐구","심화","분석","실험","독서","토론","발표","논문","연구","문제 해결"],"진로 역량":["진로","희망","직업","체험","전공","학과","관련 분야"],"공동체 역량":["협력","협업","봉사","리더","배려","소통","갈등","멘토","나눔","학급"],"자기주도성":["스스로","주도","계획","꾸준","지속","개선","목표"]};
+const SB=["국어","수학","영어","사회","과학","정보","물리","화학","생명","지구","역사","윤리","경제","정치","미술","음악","체육","기술","가정","한국사"];
+const dkw=n=>{const e=byN(n);return e?[...new Set(e.k.concat(DP[n]?DP[n].s:[]))].filter(x=>x.length>=2):[]};
+const sents=()=>{const o=[];[["세특",RECMEM.se],["동아리",RECMEM.club],["진로활동",RECMEM.career],["탐구·기타",RECMEM.inq]].forEach(([t,x])=>x.replace(/([.!?])\s*/g,"$1\n").split(/\n+/).map(y=>y.trim()).filter(y=>y.length>3).forEach(y=>o.push({t,s:y})));return o};
+const evl=(S_,ks)=>S_.filter(x=>ks.some(k=>x.s.includes(k)));
+const evh=l=>l.length?`<ul class="pl">${l.slice(0,3).map(x=>`<li><span class="meta">[${x.t}]</span> ${esc(x.s.length>120?x.s.slice(0,120)+"…":x.s)}</li>`).join("")}</ul>`:`<p class="meta">근거 문장 없음</p>`;
+function recordPage(){const dps=pf().dp,saved=ls.get("recsave",false);
+ let h=`<h1 style="margin-top:36px">학생부 분석</h1><div class="warn"><b>키워드 기반 근거 찾기</b> · 입력한 문장에서 표현을 찾아 보여주는 단순 분석. 평가, 점수, 합격 가능성이 아님. 입력하지 않은 활동은 만들지 않음. 학생부 내용은 기본적으로 저장되지 않고 이 기기 밖으로 나가지 않음.</div>
+ <div class="fg" style="grid-template-columns:1fr">${[["se","세부능력 및 특기사항"],["club","동아리 활동"],["career","진로 활동"],["inq","탐구 활동·독서·기타"]].map(x=>`<label class="fl"><span>${x[1]}</span><textarea data-rec="${x[0]}">${esc(RECMEM[x[0]])}</textarea></label>`).join("")}</div>
+ <label class="ck" style="border:0"><input type="checkbox" data-recsave ${saved?"checked":""}><span><b>이 기기에 저장</b><small>켜면 입력 내용이 이 브라우저에 보관됨. 공용 기기에서는 끄기.</small></span></label>
+ <div><button class="btn" data-analyze>분석</button><button class="btn s" data-recclear>입력 지우기</button></div>`;
+ if(!RA)return h;
+ const S_=sents();if(!S_.length)return h+`<div class="notice">분석할 문장 없음</div>`;
+ h+=`<h2>희망 학과와 연관된 활동</h2>`;
+ if(!dps.length)h+=`<div class="notice">희망 학과 미설정 · <a href="#/profile">프로필에서 선택</a></div>`;
+ dps.slice(0,3).forEach(d=>{const ks=dkw(d),e_=evl(S_,ks);h+=`<p><b>${esc(d)}</b> · 근거 문장 ${e_.length}건 <span class="meta">(찾은 표현: ${esc(ks.slice(0,8).join(", "))} 등)</span></p>${evh(e_)}`;
+  if(DP[d])h+=`<p class="meta">탐구 방향 참고 · 전공 과목(${esc(DP[d].s.slice(0,3).join(", "))})의 개념과 교과 내용을 연결한 질문 만들기</p>`});
+ h+=`<h2>역량 근거</h2>`+Object.entries(CAP).map(([k,ks])=>{const e_=evl(S_,ks);return `<p><b>${k}</b> · 근거 ${e_.length}건</p>${evh(e_)}`}).join("");
+ const fu=S_.filter(x=>SB.filter(b=>x.s.includes(b)).length>=2);h+=`<h2>교과 간 융합 단서 <i>한 문장에 2개 이상 교과 언급</i></h2>${evh(fu)}`;
+ const us=[...new Set([...sv().map(byN).filter(x=>x&&x.t==="대학").map(x=>x.n),...cp()["대학"]])];
+ h+=`<h2>대학별 공식 인재상 연결</h2>`;
+ const withT=us.filter(n=>(udAll()[n]||{}).talent&&udAll()[n].talent.length);
+ if(!withT.length)h+=`<div class="notice">관심·비교 대학 중 공식 인재상 데이터가 입력된 대학 없음. 대학 공식 자료를 <a href="#/data">데이터 관리</a>에 입력하면 연결 분석 가능. AI 해석은 제공하지 않음.</div>`;
+ withT.forEach(n=>{const u=udAll()[n];h+=`<p><b>${esc(n)}</b> <span class="meta">출처 ${esc(u.src||"확인 필요")} · 확인일 ${esc(u.date||"확인 필요")}</span></p>`+u.talent.map(t=>{const e_=t.kw&&t.kw.length?evl(S_,t.kw):null;return `<div class="box" style="margin-bottom:8px"><p><b>${esc(t.name)}</b>${t.desc?` · ${esc(t.desc)}`:""}</p>${e_==null?`<p class="meta">키워드 미입력으로 연결 불가</p>`:`<p class="meta">관련 근거 ${e_.length}건${e_.length?"":" · 보완 필요: 근거 없음"}</p>${evh(e_)}`}</div>`}).join("")});
+ return h+`<p class="note">입력 문장에 키워드가 있다는 사실만 보여줌. 활동의 질과 대학 평가 결과는 판단하지 않음.</p>`}
+function roadmap(){const p=prof(),S=stats(p),y=+p.yr||0,dps=pf().dp,dp=dps[0],d=dp&&DP[dp],ck=ls.get("rm",{}),A=adm();
+ const wk=SUBS.filter(k=>S.sub[k]!=null).sort((a,b)=>S.sub[b]-S.sub[a])[0];
+ const bests=A.map(r=>({r,j:judge(r,p,S,+ls.get("mg",0.3)||0.3)})).filter(x=>x.j.k==="상향").sort((a,b)=>a.j.d-b.j.d)[0];
+ const st=[
+ ["r1","현재 학업 진단",S.n||S.main!=null?`전체 평균 ${f2(S.all)}${S.main!=null?` · 주요 교과 평균 ${f2(S.main)}`:""} (${p.sc||"?"}등급제).${wk&&S.sub[wk]!=null&&SUBS.filter(k=>S.sub[k]!=null).length>1?` 입력 교과 중 가장 낮은 성적: ${wk}.`:""}`:"내신 입력 필요 · 프로필에서 학기별·교과별 평균 입력."],
+ ["r2","목표 설정",dps.length?`희망 학과: ${dps.join(", ")}.${sv().map(byN).filter(x=>x&&x.t==="대학").length?` 관심 대학: ${sv().map(byN).filter(x=>x&&x.t==="대학").map(x=>x.n).join(", ")}.`:" 관심 대학을 저장하면 목표 대학 선택에 활용."}`:"희망 학과 선택 필요 · 학과 탐색 또는 프로필에서 선택."],
+ ["r3","성적 목표",bests?`상향 후보 ${bests.r.univ} ${bests.r.dept}(${bests.r.track}) ${bests.j.why} · 내신 시뮬레이션에서 남은 학기 목표별 변화를 확인.`:A.length?"현재 입력 기준 상향 후보가 없거나 비교 불가. 내신 시뮬레이션으로 목표 평균을 설정.":"입결 데이터가 없어 구체 목표를 정할 수 없음. 입시 정보에서 데이터 현황 확인."],
+ ["r4","선택과목 검토",dp&&HS[dp]?`${dp} 관련 교과 예시: ${HS[dp]}. 학교 개설 과목과 대학 권장 과목은 입학처 확인.`:"희망 학과 선택 후 제공."],
+ ["r5","학생부 탐구 방향",d?`전공 과목(${d.s.slice(0,4).join(", ")}) 개념과 교과 내용을 연결한 탐구 질문 설계. 이미 한 활동은 반복하지 않고 심화·확장 방향으로 연결. 학생부 분석에서 근거 확인.`:"희망 학과 선택 후 제공."],
+ ["r6","전공 관련 독서","도서는 교과 교사·사서와 상의해 선정. 읽은 뒤 질문을 만들고 탐구 활동으로 연결."],
+ ["r7","면접 준비",p.iv==="no"?"면접 없는 전형 선호로 입력됨. 후보 전형의 면접 여부 확인.":"학종·면접 전형 지원 시 활동 설명 연습, 학과 관련 이슈 정리. 후보 전형의 면접 여부 확인."],
+ ["r8","수능 최저 준비",p.mn==="no"?"최저 없는 전형 선호. 후보 전형의 최저 유무 확인.":`후보 전형의 수능 최저 확인 후 부족한 영역 계획.${["국","수","영","탐"].some(k=>p.su[k])?` 입력된 수능 등급: ${["국","수","영","탐"].filter(k=>p.su[k]).map(k=>k+" "+p.su[k]).join(", ")}.`:""}`],
+ ["r9","원서 접수 전 확인",y===3?"2027학년도 일정: 수능 2026.11.19, 성적 통지 2026.12.11, 정시 원서접수 2027.01.04~07. 일정은 변경될 수 있어 공식 공고 확인. 지원 자격과 제출서류는 모집요강 확인.":"해당 학년도 일정은 발표 후 확인. 2028학년도 일정 데이터 없음."]];
+ const pri={1:["r1","r2","r4","r5","r6"],2:["r1","r3","r4","r5","r6"],3:["r3","r7","r8","r9"]}[y]||[];
+ const done=st.filter(x=>ck[x[0]]).length;
+ return `<h1 style="margin-top:36px">진학 로드맵</h1>${y?"":`<div class="warn">현재 학년 미입력 · 학년에 맞춰 우선 단계가 달라짐. <a href="#/profile">프로필 입력</a></div>`}<p class="meta">진행 ${done}/${st.length}</p><div class="pgb"><i style="width:${done/st.length*100}%"></i></div>
+ ${st.map(x=>`<label class="ck"><input type="checkbox" data-rm="${x[0]}" ${ck[x[0]]?"checked":""}><span><b>${x[1]}</b>${pri.includes(x[0])?` <span class="stt s">지금 우선</span>`:""}<small>${esc(x[2])}</small></span></label>`).join("")}
+ <p class="note">입력한 프로필과 입결 데이터 기준의 참고 안내. 개인 상담과 공식 모집요강을 함께 확인.</p>`}
+const GL=[["70% 컷","최종 등록자 성적을 좋은 순서로 세웠을 때 70% 지점의 성적. 산출 기준(등록자·합격자)은 대학마다 다르므로 공시 기준 확인."],["50% 컷","같은 방식으로 50% 지점의 성적. 평균과 다를 수 있음."],["경쟁률","지원자 수를 모집인원으로 나눈 값."],["충원 합격","합격자가 등록하지 않아 생긴 빈자리를 예비 순위 순서로 채우는 추가 합격."],["수능 최저학력기준","수시 전형에서 정한 수능 성적 최소 조건. 충족하지 못하면 다른 평가가 좋아도 불합격."],["학생부교과전형","학생부의 교과 성적 중심 평가. 반영 교과와 학년, 산출 방식은 대학마다 다름."],["학생부종합전형","교과 성적과 함께 학업·진로·공동체 역량, 활동 기록을 서류와 면접으로 종합 평가."],["교과 환산점수","대학이 자체 기준으로 교과 성적을 점수화한 값."],["반영 교과","교과 성적 계산에 포함하는 과목군. 예: 국영수사과, 전 교과."],["5등급제·9등급제","내신 등급 체계. 2015 개정은 보통 9등급, 2022 개정은 일반선택과목 기준 5등급. 서로 단순 환산하지 않음."],["성취도(A~E)","성취평가제에서 과목별 성취 수준. 진로선택과목에 주로 사용."],["진로선택과목","학생의 진로와 적성에 맞춰 선택하는 과목. 성취도로 평가."],["수시·정시","수시는 학생부·논술·실기 등 중심, 정시는 수능 중심 선발."],["모집인원","전형별로 선발하는 인원."]];
+function admission(){const A=adm(),sc=D.filter(e=>e.t==="일정").sort((a,b)=>a.ds.localeCompare(b.ds)),ds=A.map(r=>r.date).filter(x=>/^\d{4}-\d{2}-\d{2}$/.test(x)).sort();
+ return `<h1 style="margin-top:36px">입시 정보</h1><p class="meta">정보 기준일 ${UPD} · 일정은 공식 공고 확인 필요</p>
+ <h2>2027학년도 일정 <i>출처 한국교육과정평가원 · 대학교육협의회</i></h2>${sc.map(row).join("")}<p class="meta">2028학년도 일정 · 데이터 없음. 공식 발표 후 확인 필요.</p>
+ <h2>공식 자료</h2><div>${ext("https://www.adiga.kr","대입정보포털 어디가")}${ext("https://www.kcue.or.kr","한국대학교육협의회")}${ext("https://www.academyinfo.go.kr","대학알리미")}${ext("https://www.moe.go.kr","교육부")}</div>
+ <h2>입결 데이터 현황</h2><p>${A.length?`${A.length}건 · 최근 확인일 ${esc(ds[ds.length-1]||"확인 필요")} · 가상 예시 ${A.filter(r=>r.ex).length}건`:"입력된 입결 없음 · 공식 자료 확인 필요."} <a href="#/data">데이터 관리</a></p>
+ <h2>교과전형과 종합전형 비교</h2><div class="cmpw"><table class="cmp"><thead><tr><th></th><th>학생부교과</th><th>학생부종합</th></tr></thead><tbody><tr><td>평가 중심</td><td>교과 성적</td><td>학업·진로·공동체 역량, 활동 기록</td></tr><tr><td>평가 방식</td><td>대학별 반영 교과·산출식에 따른 정량 평가</td><td>서류 평가, 대학에 따라 면접 포함</td></tr><tr><td>준비 포인트</td><td>교과 성적 관리, 반영 교과 확인</td><td>전공 관련 탐구와 활동 기록, 면접 준비</td></tr><tr><td>공통 확인</td><td colspan="2">모집인원, 수능 최저, 제출서류, 지원 자격은 대학 모집요강 확인</td></tr></tbody></table></div>
+ <h2>모집 요강 핵심 요약 <i>입력된 데이터 기준</i></h2>${A.length?`<div class="cmpw"><table class="cmp" style="min-width:760px"><thead><tr><th>대학·학과</th><th>학년도·전형</th><th>모집</th><th>반영</th><th>수능최저</th><th>면접</th><th>제출서류</th><th>출처·확인일</th></tr></thead><tbody>${A.map(r=>`<tr><td>${esc(r.univ)} ${esc(r.dept)}${r.ex?` <span class="bd w">가상</span>`:""}</td><td>${esc(r.year)} ${esc(r.track)}</td><td>${V(r.quota)}</td><td>${V(r.basis)}</td><td>${V(r.min)}</td><td>${V(r.iv)}</td><td>${V(r.doc)}</td><td>${V(r.src)} ${V(r.date)}</td></tr>`).join("")}</tbody></table></div>`:`<div class="notice">요약할 데이터 없음 · 공식 자료 확인 필요</div>`}
+ <h2>지원 자격</h2><p>수시·정시 지원은 일반적으로 고3(졸업예정자)과 졸업생이 대상. 세부 자격과 제한은 대학 모집요강 확인.${(+prof().yr||0)&&+prof().yr<3?` 현재 입력 학년은 고${prof().yr}로, 올해 모집 대상이 아닐 수 있음.`:""}</p>
+ <h2>입시 용어 사전</h2><dl class="gl">${GL.map(x=>`<dt>${x[0]}</dt><dd>${x[1]}</dd>`).join("")}</dl>`}
+let UDSEL="",MSG="";
+const SAMPLE=[["예시","예시대학 A","행정학과","학생부교과(가상)","20","8.0:1","5","5","","2.0","2.1","국영수사과","없음","없음","","","가상 예시(실제 입결 아님)",""],["예시","예시대학 B","행정학과","학생부교과(가상)","15","10.0:1","7","5","","2.8","2.9","전교과","국영수탐 중 2개 합 6 이내","없음","","","가상 예시(실제 입결 아님)",""],["예시","예시대학 C","행정학과","학생부교과(가상)","30","6.0:1","3","5","","3.4","3.5","전교과","없음","없음","","","가상 예시(실제 입결 아님)",""],["예시","예시대학 D","행정학과","학생부교과(가상)","25","7.0:1","4","9","","3.1","3.3","전교과","없음","없음","","","가상 예시(실제 입결 아님)",""],["예시","예시대학 E","행정학과","학생부종합(가상)","12","12.0:1","","5","","2.5","2.6","","없음","있음","","서류 평가(가상)","가상 예시(실제 입결 아님)",""]];
+function parseAdm(txt,ex){const L=txt.split(/\r?\n/).filter(l=>l.trim()),out=[],er=[],dl=L[0]&&L[0].includes("\t")?"\t":",";
+ L.forEach((l,i)=>{const c=l.split(dl).map(x=>x.trim());if(i===0&&(/^학년도$/.test(c[0])||c[1]==="대학"))return;const [year,univ,dept,track,quota,comp,fill,scale,c50,c70,avg,basis,min,iv,qual,doc,src,date,base2,kind,conv]=c,sc=(scale||"").replace(/\D/g,""),m=[];
+  if(!year)m.push("학년도");if(!univ)m.push("대학");if(!dept)m.push("학과");if(!track)m.push("전형");if(sc!=="5"&&sc!=="9")m.push("등급제(5 또는 9)");
+  if(!ex){if(!src)m.push("출처");if(!/^\d{4}-\d{2}-\d{2}$/.test(date||""))m.push("확인일(YYYY-MM-DD)")}
+  if(m.length){er.push(`${i+1}행: ${m.join(", ")} 누락·형식 오류`);return}
+  out.push({year,univ,dept,track,quota,comp,fill,scale:sc,c50:num(c50),c70:num(c70),avg:num(avg),basis,min,iv,qual,doc,src,date,base2,kind,conv,type:/종합/.test(track)?"종합":/교과/.test(track)?"교과":"기타",ex:ex?1:0})});return{out,er}}
+const admSum=(e,dp)=>{const r=adm().filter(x=>x.univ===e.n&&(!dp||x.dept.includes(stem(dp))));return r.length?r.map(x=>`${esc(x.year)} ${esc(x.track)} · 모집 ${V(x.quota)} · 70%컷 ${x.c70==null?"확인 필요":f2(x.c70)} · 최저 ${V(x.min)} · 면접 ${V(x.iv)}${x.ex?" · 가상 예시":""}`).join("<br>"):"공식 자료 확인 필요"};
+const UROWS=()=>{const dp=pf().dp[0],uu=e=>udAll()[e.n]||{};return [["지역",e=>e.rg],["유형",e=>e.kd],["공식 슬로건",e=>uu(e).slogan?esc(uu(e).slogan):"공식 자료 확인 필요"],["공식 인재상",e=>(uu(e).talent||[]).length?esc(uu(e).talent.map(t=>t.name).join(", ")):"공식 자료 확인 필요"],["교육 철학·핵심 가치",e=>uu(e).philosophy?esc(uu(e).philosophy):"공식 자료 확인 필요"],[(dp||"희망 학과")+"와 인재상 키워드 겹침",e=>{if(!dp)return "희망 학과 미설정";const t=(uu(e).talent||[]).flatMap(x=>x.kw||[]);if(!t.length)return "인재상 키워드 정보 없음";const k=dkw(dp),o=t.filter(x=>k.some(y=>y.includes(x)||x.includes(y)));return o.length?esc([...new Set(o)].join(", ")):"겹치는 키워드 없음"}],[(dp||"희망 학과")+" 입결·전형",e=>admSum(e,dp)],["입학처",e=>ext(gs(e.n+" 입학처"),"입학처 검색","chip")],["장학금",e=>ext(gs(e.n+" 장학금"),"장학금 검색","chip")],["학과 개설 확인",e=>ext(gs(e.n+" "+(dp||"학과 안내")),(dp||"학과 안내")+" 확인","chip")],["정보공시",e=>ext(e.u,"대학알리미","chip")]]};
+function dash(){const p=prof(),S=stats(p);if(!(S.n||S.main!=null||pf().dp.length))return "";
+ const A=adm(),mg=+ls.get("mg",0.3)||0.3,res=A.filter(r=>deptHit(r)!==false).map(r=>judge(r,p,S,mg).k),c=k=>res.filter(x=>x===k).length,rm=ls.get("rm",{}),rr=Object.values(rm).filter(Boolean).length,u=sv().map(byN).filter(x=>x&&x.t==="대학"),nx=D.filter(e=>e.t==="일정"&&stat(e).c!=="x").sort((a,b)=>a.ds.localeCompare(b.ds))[0],rc=recsW().slice(0,3);
+ return `<section class="sec" style="margin-top:36px"><div class="sh2"><h2>나의 진학 현황</h2><small>이 기기에만 저장</small></div><div class="dash">
+ <div class="box"><p class="lab">프로필</p>${p.yr?"고"+p.yr:"학년 미입력"} · ${p.sc?p.sc+"등급제":"등급제 미선택"}<br>전체 ${f2(S.all)} · 주요 교과 ${f2(S.main)}<br><a href="#/profile">수정</a></div>
+ <div class="box"><p class="lab">내 성적으로 찾는 대학</p>${A.length?`상향 ${c("상향")} · 적정 ${c("적정")} · 안정 ${c("안정")}`:"공식 입결 데이터 없음"}<br><a href="#/analysis">분석 보기</a></div>
+ <div class="box"><p class="lab">진학 로드맵</p>${rr}/9 완료<div class="pgb" style="margin:6px 0"><i style="width:${rr/9*100}%"></i></div><a href="#/roadmap">로드맵</a></div>
+ <div class="box"><p class="lab">관심 대학</p>${u.length?u.slice(0,4).map(x=>`<a href="#/d/${id(x)}">${esc(x.n)}</a>`).join(" · "):"저장한 대학 없음"}</div>
+ <div class="box"><p class="lab">추천</p>${rc.length?rc.map(x=>`<a href="#/d/${id(x.e)}">${esc(x.e.n)}</a> <small class="meta">${esc(x.why)}</small>`).join("<br>"):"추천 없음"}</div>
+ <div class="box"><p class="lab">최신 입시 일정</p>${nx?`<a href="#/d/${id(nx)}">${esc(nx.n)}</a><br><small class="meta">${per(nx)} · ${nx.yr}</small>`:"일정 없음"}</div></div></section>`}
+/* 이벤트 */
+document.addEventListener("input",e=>{const t=e.target;
+ if(t.dataset.fld!==undefined){setp(t.dataset.fld,t.value);return}
+ if(t.dataset.rec!==undefined){RECMEM[t.dataset.rec]=t.value;if(ls.get("recsave",false))ls.set("rec",RECMEM)}});
+document.addEventListener("change",e=>{const t=e.target;
+ if(t.dataset.fld==="cur"||t.dataset.fld==="sc"){KEEP=true;route();return}
+ if(t.dataset.tg!==undefined){const g=ls.get("tg",{});g[t.dataset.tg]=t.value;ls.set("tg",g);KEEP=true;route();return}
+ if(t.id==="mg"){ls.set("mg",+t.value);KEEP=true;route();return}
+ if(t.dataset.rm!==undefined){const c=ls.get("rm",{});c[t.dataset.rm]=t.checked;ls.set("rm",c);KEEP=true;route();return}
+ if(t.dataset.recsave!==undefined){ls.set("recsave",t.checked);ls.set("rec",t.checked?RECMEM:null);return}
+ if(t.id==="ud_n"){UDSEL=t.value;MSG="";KEEP=true;route()}});
+document.addEventListener("click",e=>{const t=e.target;
+ const ps=t.closest("[data-ps]");if(ps){PS=+ps.dataset.ps;route();return}
+ if(t.closest("[data-analyze]")){RA=true;KEEP=true;route();return}
+ if(t.closest("[data-recclear]")){RECMEM={se:"",club:"",career:"",inq:""};RA=false;ls.set("rec",null);route();return}
+ const ia=t.closest("[data-impadm]");if(ia){const r=parseAdm($("#adm_txt").value,false);if(!r.out.length&&!r.er.length){MSG="붙여넣은 내용 없음";}else{ls.set("adm",ia.dataset.impadm==="replace"?r.out:[...adm(),...r.out]);MSG=`${r.out.length}건 저장.${r.er.length?"\n제외된 행:\n"+r.er.slice(0,8).join("\n"):""}`}KEEP=true;route();return}
+ if(t.closest("[data-sample]")){ls.set("adm",[...adm().filter(x=>!x.ex),...parseAdm(SAMPLE.map(x=>x.join("\t")).join("\n"),true).out]);MSG="가상 예시 5건을 불러옴. 실제 입결이 아니며 기능 확인용. 공식 데이터 입력 전에 삭제 권장.";KEEP=true;route();return}
+ if(t.closest("[data-clradm]")){if(confirm("입력된 입결을 모두 삭제합니다.")){ls.set("adm",[]);MSG="입결 삭제됨"}KEEP=true;route();return}
+ if(t.closest("[data-copytpl]")){const h="학년도\t대학\t학과\t전형\t모집인원\t경쟁률\t충원순위\t등급제\t50%컷\t70%컷\t최종등록자평균\t반영기준\t수능최저\t면접\t지원자격\t제출서류\t출처\t확인일";(navigator.clipboard?navigator.clipboard.writeText(h):Promise.reject()).then(()=>{MSG="양식 복사됨";KEEP=true;route()},()=>prompt("양식 복사",h));return}
+ if(t.closest("[data-saveud]")){const n=$("#ud_n").value,tal=$("#ud_talent").value.split(/\n/).map(l=>l.trim()).filter(Boolean).map(l=>{const c=l.split("|").map(x=>x.trim());return{name:c[0],kw:(c[1]||"").split(",").map(x=>x.trim()).filter(Boolean),desc:c[2]||""}}),lg=$("#ud_logo").value.trim();
+  if(lg&&!/^https:\/\//.test(lg)){MSG="로고 주소는 https로 시작해야 함";KEEP=true;route();return}
+  const all={...udAll()};all[n]={slogan:$("#ud_slogan").value.trim(),philosophy:$("#ud_phil").value.trim(),talent:tal,logo:lg,src:$("#ud_src").value.trim(),date:$("#ud_date").value.trim()};ls.set("ud",all);UDSEL=n;MSG=n+" 프로필 저장됨. 출처와 확인일 기재 권장.";KEEP=true;route();return}
+ if(t.closest("[data-clrud]")){const n=$("#ud_n").value,all={...udAll()};delete all[n];ls.set("ud",all);UDSEL=n;MSG=n+" 프로필 삭제됨";KEEP=true;route();return}
+ if(t.closest("[data-exp]")){$("#bk").value=JSON.stringify({adm:adm(),ud:udAll()},null,1);return}
+ if(t.closest("[data-imp]")){try{const o=JSON.parse($("#bk").value);if(!o||typeof o!=="object")throw 0;if(Array.isArray(o.adm))ls.set("adm",o.adm);if(o.ud&&typeof o.ud==="object")ls.set("ud",o.ud);MSG="가져오기 완료"}catch(_){MSG="JSON 형식 오류"}KEEP=true;route()}});
+
+/* ===== 대학 피라미드 · 전형별 입결 모듈 ===== */
+const GROUPS=[
+{id:"SKY",label:"SKY",tier:"최상위권",c:"#0e2354",u:["서울대학교","고려대학교","연세대학교"]},
+{id:"서성한",label:"서성한",tier:"상위권",c:"#1f4fd8",u:["서강대학교","성균관대학교","한양대학교"]},
+{id:"중경외시",label:"중경외시",tier:"상위권",c:"#2a7ab5",u:["중앙대학교","경희대학교","한국외국어대학교","서울시립대학교"]},
+{id:"건동홍",label:"건동홍",tier:"중상위권",c:"#1f8a8a",u:["건국대학교","동국대학교","홍익대학교"]},
+{id:"국숭세단",label:"국숭세단",tier:"중상위권",c:"#4a8a4f",u:["국민대학교","숭실대학교","세종대학교","단국대학교"]},
+{id:"광명상가",label:"광명상가",tier:"그 외 주요 대학군",c:"#8a7a2a",u:["광운대학교","명지대학교","상명대학교","가톨릭대학교"]},
+{id:"한서삼",label:"한서삼",tier:"그 외 주요 대학군",c:"#8a5a3a",u:["한성대학교","서경대학교","삼육대학교"]}];
+const GOF=n=>{const g=GROUPS.find(x=>x.u.includes(n));return g?g.label:""};
+const UF=[["founding","설립 이념"],["goal","교육 목표"],["values","핵심 가치"],["philosophy","교육 철학"],["majors","주요 학과"],["campus","캠퍼스 위치"],["unique","대학의 차별화된 특징"],["programs","대표 교육 프로그램"],["special","특성화 분야"],["support","학생 지원 프로그램"],["scholar","장학 제도"],["global","해외 교류 프로그램"],["dorm","기숙사·학생 복지"],["career","취업 지원"],["research","산학협력·연구 분야"],["after","졸업 후 진로"]];
+const TFC=[["name","전형명"],["quota","모집 인원"],["qual","지원 자격"],["basis","반영 교과"],["subjects","반영 과목"],["ratio","학년별 반영 비율"],["calc","교과 성적 산출 방식"],["career","진로선택과목 반영 방식"],["min","수능 최저학력기준"],["iv","면접 여부"],["feat","전형별 특징"]];
+const TFJ=[["name","전형명"],["quota","모집 인원"],["qual","지원 자격"],["docr","서류 평가 비율"],["ivr","면접 평가 비율"],["min","수능 최저 여부"],["acad","학업 역량 평가 기준"],["car","진로 역량 평가 기준"],["comm","공동체 역량 평가 기준"],["dir","학교생활기록부 평가 방향"],["feat","전형별 특징"]];
+let UT="교과",US="",TRD="",GD="",GS="",FF={},TFN="",TFT="교과";
+const logoSrc=n=>{const u=udAll()[n];return u&&/^(https:\/\/|logos\/)/.test(u.logo||"")?u.logo:""};
+const logoBox=(e,h)=>{const l=logoSrc(e.n);return `<div class="lgb" style="height:${h}px">${l?`<img src="${esc(l)}" alt="${esc(e.n)} 로고" loading="lazy" referrerpolicy="no-referrer" onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:this.alt.replace(' 로고','')}))">`:`<span>${esc(e.n)}</span>`}</div>`};
+const yrNum=y=>{const m=String(y).match(/\d{4}/);return m?+m[0]:0},cutOf=r=>r.c70!=null?r.c70:r.avg!=null?r.avg:null;
+const latest=rs=>rs.slice().sort((a,b)=>yrNum(b.year)-yrNum(a.year))[0],dgroup=rs=>{const m={};rs.forEach(r=>(m[r.dept]=m[r.dept]||[]).push(r));return m};
+const cutTxt=r=>`${r.c70!=null?"70%컷 "+f2(r.c70):r.avg!=null?"평균 "+f2(r.avg):"수치 확인 필요"} <span class="meta">(${esc(r.year)}${r.ex?" · 가상":""})</span>`;
+const trendTxt=rs=>{const s=rs.filter(r=>cutOf(r)!=null).sort((a,b)=>yrNum(a.year)-yrNum(b.year));return s.length>=2?`${f2(cutOf(s[s.length-2]))}→${f2(cutOf(s[s.length-1]))} <span class="meta">(${esc(s[s.length-2].year)}→${esc(s[s.length-1].year)})</span>`:"비교 불가(2개 학년도 필요)"};
+const minState=r=>!r.min?"?":/^(없|해당\s*없|미적용)/.test(r.min.trim())?"없음":"있음",ivState=r=>!r.iv?"?":/^(없|미실시|해당\s*없)/.test(r.iv.trim())?"없음":"있음";
+const dmatch=(r,d)=>!d||r.dept.includes(stem(d))||stem(d).includes(stem(r.dept))&&stem(r.dept).length>1;
+const kindB=r=>r.ex?"가상 예시":r.kind?esc(r.kind):"구분 확인 필요";
+const utile=e=>`<a class="pt" href="#/d/${id(e)}">${logoBox(e,44)}<b>${esc(e.n)}</b></a>`;
+function pyr(){const W=[46,56,66,76,86,94,100],WM=[64,72,78,84,90,95,100];
+ return `<div class="pyr">${GROUPS.map((g,i)=>`<div class="lv" style="--w:${W[i]}%;--wm:${WM[i]}%;--c:${g.c}"><div class="lh"><span><b>${g.label}</b> <small>${g.tier}</small></span><a href="#/grp/${enc(g.id)}">대학군 비교 →</a></div><div class="lt">${g.u.map(n=>byN(n)).filter(Boolean).map(utile).join("")}</div></div>`).join("")}</div><p class="meta" style="text-align:center">일반적으로 쓰이는 참고용 분류이며 공식 대학 순위가 아님. 학과와 전형에 따라 실제 입시 결과가 달라질 수 있음. 로고는 공식 자료에서 등록한 경우에만 표시.</p>`}
+function pyramidPage(){const depts=[...new Set([...D.filter(e=>e.t==="학과").map(e=>e.n),...adm().map(r=>r.dept)])];
+ const f=FF,A=adm();
+ const {us,rm,rowF}=finderList();
+ const selO=(k,l,o)=>`<label class="fl"><span>${l}</span><select data-ff="${k}"><option value="">전체</option>${o.map(x=>`<option value="${esc(x)}" ${f[k]===x?"selected":""}>${esc(x)}</option>`).join("")}</select></label>`;
+ const card=e=>{const u=udAll()[e.n]||{},tr=u.tr||{},kr=latest(A.filter(r=>r.univ===e.n&&r.type==="교과"&&(!f.sc||r.scale===f.sc)&&dmatch(r,f.dept))),jj=tr["종합"]||{};
+  return `<div class="uc">${logoBox(e,64)}<h3><a href="#/d/${id(e)}">${esc(e.n)}</a></h3><span class="bd">${GOF(e.n)||"대학군 외"}</span><span class="bd o">${e.rg} · ${e.kd}</span>
+  <p class="meta"><b>슬로건</b> ${u.slogan?esc(u.slogan):"공식 자료 확인 필요"}<br><b>인재상</b> ${(u.talent||[]).length?esc(u.talent[0].name):"공식 자료 확인 필요"}<br><b>교과전형</b> ${kr?`${esc(kr.dept)} ${cutTxt(kr)} · ${kr.scale}등급제`:"입결 확인 필요"}<br><b>종합전형</b> ${jj.docr||jj.ivr?`서류 ${esc(jj.docr||"확인 필요")} · 면접 ${esc(jj.ivr||"확인 필요")}`:"평가 방식 확인 필요"}</p><a class="btn s" href="#/d/${id(e)}">상세 정보 보기</a></div>`};
+ return `<h1 style="margin-top:36px">대학 피라미드</h1><p class="meta">대학군별로 대학을 한눈에 보고, 로고를 눌러 상세 입시 정보를 확인.</p>${pyr()}
+ <h2>학과별 입결 검색</h2><div class="sb" style="max-width:520px"><form onsubmit="return false" style="display:flex;border:1px solid var(--n);border-radius:4px"><input id="dr_in" list="dl_d" placeholder="학과명 (예: 행정학과)" style="flex:1;min-width:0;border:0;font:inherit;font-size:16px;padding:12px;outline:0"><datalist id="dl_d">${depts.map(x=>`<option value="${esc(x)}">`).join("")}</datalist><button class="go" data-drgo type="button" style="border:0;background:var(--n);color:#fff;padding:0 20px">검색</button></form></div>
+ <h2>대학 검색 · 필터 <i>${us.length}곳</i></h2>
+ <div class="fg" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr))">${selO("grp","대학군",GROUPS.map(g=>g.id))}<label class="fl"><span>대학명</span><input data-ff="name" value="${esc(f.name||"")}" placeholder="이름 입력 후 Enter"></label>${selO("rg","지역",RG)}${selO("dept","학과",depts)}${selO("sc","등급제",["5","9"])}${selO("tr","전형",["교과","종합"])}<label class="fl"><span>내신 입결 이하(숫자)</span><input data-ff="cut" value="${esc(f.cut||"")}" type="number" step="0.01" placeholder="예: 2.5"></label>${selO("min","수능 최저",["있음","없음"])}${selO("iv","면접",["있음","없음"])}</div>
+ <div><button class="btn s" data-ffreset>조건 초기화</button></div>
+ ${f.cut&&!f.sc?`<div class="warn">내신 입결 조건은 등급제에 따라 의미가 다름. 등급제를 함께 선택.</div>`:""}
+ ${rowF&&!A.length?`<div class="notice">입결 데이터가 없어 입결 조건으로 걸러지는 대학이 없음. <a href="#/data">데이터 관리</a></div>`:""}
+ ${us.length?`<div class="uc-grid">${us.map(card).join("")}</div>`:`<div class="empty">조건에 맞는 대학 없음</div>`}
+ <p class="note">입결·전형 정보는 입력된 공식 자료 기준. 입력되지 않은 항목은 공식 자료 확인 필요로 표시. 대학군은 참고용 분류.</p>`}
+function finderList(){const f=FF,A=adm();let us=D.filter(e=>e.t==="대학");
+ if(f.grp){const g=GROUPS.find(x=>x.id===f.grp);us=us.filter(e=>g&&g.u.includes(e.n))}
+ if(f.name&&f.name.trim())us=us.filter(e=>e.n.includes(f.name.trim()));if(f.rg)us=us.filter(e=>e.rg===f.rg);
+ const rowF=!!(f.dept||f.sc||f.tr||f.cut||f.min||f.iv),rm=r=>dmatch(r,f.dept)&&(!f.sc||r.scale===f.sc)&&(!f.tr||r.type===f.tr)&&(!f.cut||(cutOf(r)!=null&&cutOf(r)<=+f.cut))&&(!f.min||minState(r)===f.min)&&(!f.iv||ivState(r)===f.iv);
+ if(rowF)us=us.filter(e=>A.some(r=>r.univ===e.n&&rm(r)));return{us,rm,rowF}}
+function grpPage(id_){const g=GROUPS.find(x=>x.id===id_);if(!g)return home();const A=adm(),sc=GS||prof().sc||"9",ns=g.u.map(byN).filter(Boolean);
+ const depts=[...new Set([...D.filter(e=>e.t==="학과").map(e=>e.n),...A.filter(r=>g.u.includes(r.univ)).map(r=>r.dept)])],dp=GD||"";
+ const rows=ns.map(e=>{const rs=A.filter(r=>r.univ===e.n&&r.scale===sc&&dmatch(r,dp));
+  if(!rs.length)return `<tr><td>${logoBox(e,36)}<a href="#/d/${id(e)}">${esc(e.n)}</a></td><td colspan="7">자료 확인 필요 · ${ext(gs(e.n+" 입학처 입시결과"),"입학처 검색","chip")}</td></tr>`;
+  return Object.entries(dgroup(rs)).map(([d,x])=>{const kj=x.filter(r=>r.type==="교과"),jj=x.filter(r=>r.type==="종합"),lk=latest(kj),lj=latest(jj);
+   return `<tr><td>${logoBox(e,36)}<a href="#/d/${id(e)}">${esc(e.n)}</a></td><td>${esc(d)}${dp&&stem(d)!==stem(dp)?` <span class="bd">유사 명칭</span>`:""}</td><td>${lk?cutTxt(lk):"자료 확인 필요"}</td><td>${lj?cutTxt(lj)+` <span class="meta">참고용</span>`:"자료 확인 필요"}</td><td>${lk?V(lk.min):lj?V(lj.min):"확인 필요"}</td><td>${lj?V(lj.iv):lk?V(lk.iv):"확인 필요"}</td><td>교과 ${lk?V(lk.quota):"확인 필요"}<br>종합 ${lj?V(lj.quota):"확인 필요"}</td><td>교과 ${trendTxt(kj)}<br>종합 ${trendTxt(jj)}</td></tr>`}).join("")}).join("");
+ return `<p class="bc"><a href="#/">홈</a> › <a href="#/pyramid">대학 피라미드</a> › ${esc(g.label)}</p><h1 style="margin-top:12px">${esc(g.label)} <small class="meta">${g.tier}</small></h1>
+ <div class="pyr"><div class="lv" style="--w:100%;--wm:100%;--c:${g.c}"><div class="lt">${ns.map(utile).join("")}</div></div></div>
+ <div class="bar"><label>학과 <select id="g_d"><option value="">전체</option>${depts.map(x=>`<option ${dp===x?"selected":""}>${esc(x)}</option>`).join("")}</select></label><label>등급제 <select id="g_s"><option value="9" ${sc==="9"?"selected":""}>9등급제</option><option value="5" ${sc==="5"?"selected":""}>5등급제</option></select></label></div>
+ <p class="meta">같은 대학군이라도 학과별 입결 차이가 큼. ${sc}등급제 입력 자료만 표시하며 다른 등급제 값으로 환산하지 않음. 종합전형 수치는 참고용이며 내신 컷만으로 합격 가능성을 판단할 수 없음.</p>
+ <div class="cmpw"><table class="cmp" style="min-width:860px"><thead><tr><th>대학</th><th>학과</th><th>교과전형 입결</th><th>종합전형 입결(참고)</th><th>수능 최저</th><th>면접</th><th>모집 인원</th><th>최근 입결 변화</th></tr></thead><tbody>${rows}</tbody></table></div>
+ ${A.length?"":`<div class="notice" style="margin-top:12px">입결 데이터 없음 · 공식 자료를 <a href="#/data">데이터 관리</a>에 입력하면 표가 채워짐.</div>`}`}
+function drPage(q){const A=adm(),all=GROUPS.flatMap(g=>g.u.map(n=>({n,g}))).filter(x=>byN(x.n)),st_=stem(q);
+ return `<p class="bc"><a href="#/">홈</a> › <a href="#/pyramid">대학 피라미드</a> › 학과별 입결</p><h1 style="margin-top:12px">${esc(q)} 입결</h1><p class="meta">입력된 공식 자료 기준. 실제 개설 여부와 학과 명칭은 대학 공식 자료 확인 필요. 동일 학과와 유사 명칭을 구분해 표시하며 없는 학과를 만들지 않음.</p>
+ ${all.map(({n,g})=>{const e=byN(n),rs=A.filter(r=>r.univ===n&&dmatch(r,q));
+  const body=rs.length?Object.entries(dgroup(rs)).map(([d,x])=>`<div class="box" style="margin:8px 0"><p><b>${esc(d)}</b> <span class="bd ${stem(d)===st_?"":"w"}">${stem(d)===st_?"동일 학과":"유사 명칭"}</span></p>${["교과","종합"].map(t=>{const l=x.filter(r=>r.type===t);return `<p class="meta"><b>${t}전형</b> ${l.length?l.sort((a,b)=>yrNum(b.year)-yrNum(a.year)).slice(0,3).map(r=>`${esc(r.year)} ${r.scale}등급제 ${cutTxt(r)}${r.min?" · 최저 "+esc(r.min):""}${r.iv?" · 면접 "+esc(r.iv):""} · ${kindB(r)}`).join("<br>"):"자료 확인 필요"}</p>`}).join("")}</div>`).join(""):`<p class="meta">자료 확인 필요 · 개설 여부 포함 · ${ext(gs(n+" "+q),"개설 확인","chip")}</p>`;
+  return `<div class="res"><div style="display:flex;gap:14px;align-items:center"><div style="width:110px">${logoBox(e,48)}</div><div><h3><a href="#/d/${id(e)}">${esc(n)}</a></h3><span class="bd">${g.label}</span></div></div>${body}</div>`}).join("")}`}
+const TFROW=(k,l,v)=>`<div style="display:flex;gap:14px;padding:9px 0;border-bottom:1px solid var(--line)"><span class="meta" style="min-width:120px">${l}</span><span>${v?esc(v):"공식 자료 확인 필요"}</span></div>`;
+const LC=(seq,mx)=>{const W=520,H=210,L=40,R=18,T=18,B=32,vs=seq.map(x=>x.v),lo=Math.min(...vs),hi=Math.max(...vs),a=Math.max(1,Math.floor((lo-0.3)*10)/10),b=Math.min(mx,Math.ceil((hi+0.3)*10)/10),ys=v=>T+(v-a)/((b-a)||1)*(H-T-B),xs=i=>seq.length===1?W/2:L+i*(W-L-R)/(seq.length-1);
+ return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="최근 입결 변화 그래프. 위쪽이 더 좋은 등급"><line x1="${L}" x2="${W-R}" y1="${T}" y2="${T}" stroke="#e2e5ea"/><line x1="${L}" x2="${W-R}" y1="${H-B}" y2="${H-B}" stroke="#e2e5ea"/><text x="${L-6}" y="${T+4}" font-size="11" text-anchor="end" fill="#5b6575">${a.toFixed(1)}</text><text x="${L-6}" y="${H-B+4}" font-size="11" text-anchor="end" fill="#5b6575">${b.toFixed(1)}</text><polyline fill="none" stroke="#1f4fd8" stroke-width="2" points="${seq.map((x,i)=>xs(i)+","+ys(x.v)).join(" ")}"/>${seq.map((x,i)=>`<circle cx="${xs(i)}" cy="${ys(x.v)}" r="4" fill="#0e2354"/><text x="${xs(i)}" y="${ys(x.v)-9}" font-size="11" text-anchor="middle" fill="#0e2354">${f2(x.v)}</text><text x="${xs(i)}" y="${H-10}" font-size="11" text-anchor="middle" fill="#5b6575">${esc(x.y)}</text>`).join("")}</svg>`};
+function utabs(e){const A=adm().filter(r=>r.univ===e.n),sc=US||prof().sc||"9",ud=udAll()[e.n]||{},tr=(ud.tr||{})[UT]||{},isK=UT==="교과",fl=isK?TFC:TFJ;
+ const rows=A.filter(r=>r.type===UT&&r.scale===sc).sort((a,b)=>yrNum(b.year)-yrNum(a.year)),other=A.filter(r=>r.type===UT&&r.scale!==sc).length;
+ let h=`<h2>전형별 입시 정보</h2><div class="tabs"><button class="chip ${isK?"on":""}" data-ut="교과">학생부교과전형</button><button class="chip ${!isK?"on":""}" data-ut="종합">학생부종합전형</button><span style="flex:1"></span><button class="chip ${sc==="9"?"on":""}" data-us="9">9등급제</button><button class="chip ${sc==="5"?"on":""}" data-us="5">5등급제</button></div>`;
+ if(!isK)h+=`<div class="warn">학생부종합전형은 내신 등급만으로 합격선을 판단할 수 없음. 공개된 입결은 참고 자료이며 합격 가능성을 내신 컷 하나로 단정하지 않음.</div>`;
+ const l0=latest(rows);
+ h+=`<div class="facts"><div><small>모집 인원</small>${V(tr.quota||(l0&&l0.quota))}</div><div><small>경쟁률(${l0?esc(l0.year):"확인 필요"})</small>${V(l0&&l0.comp)}</div><div><small>수능 최저 · 면접</small>${V(tr.min||(l0&&l0.min))} · ${V((isK?tr.iv:tr.ivr)||(l0&&l0.iv))}</div></div>`;
+ h+=`<div class="box">${fl.map(([k,l])=>TFROW(k,l,tr[k])).join("")}</div><p class="meta">${tr.src?`출처 ${/^https?:\/\//.test(tr.src)?`<a href="${esc(tr.src)}" target="_blank" rel="noopener noreferrer">${esc(tr.src)}</a>`:esc(tr.src)} · 확인일 ${esc(tr.date||"확인 필요")}`:"전형 요강 미입력 · 대학 공식 모집요강 확인 필요"}</p>`;
+ h+=`<h2>${sc}등급제 입시 결과 <i>${isK?"교과":"종합 · 참고용"}</i></h2>`;
+ if(!rows.length)h+=`<div class="notice">${sc}등급제 ${isK?"교과":"종합"}전형 입결 자료 확인 필요.${other?` 다른 등급제 자료 ${other}건이 있으나 환산해서 보여주지 않음. 등급제 버튼으로 전환.`:""} NEXORA는 9등급제 값을 5등급제 합격선처럼 계산해 보여주지 않음.</div><div>${ext("https://www.adiga.kr","어디가")}${ext(gs(e.n+" 입학처 입시결과"),"입학처 검색")}</div>`;
+ else h+=`<div class="cmpw"><table class="cmp" style="min-width:900px"><thead><tr><th>학년도</th><th>모집단위</th><th>모집</th><th>경쟁률</th><th>충원</th><th>최종등록자 평균</th><th>50%컷</th><th>70%컷</th><th>환산점수</th><th>구분</th><th>지표 기준</th><th>출처 · 확인일</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${esc(r.year)}</td><td>${esc(r.dept)}</td><td>${V(r.quota)}</td><td>${V(r.comp)}</td><td>${V(r.fill)}</td><td>${r.avg==null?"확인 필요":f2(r.avg)}</td><td>${r.c50==null?"확인 필요":f2(r.c50)}</td><td>${r.c70==null?"확인 필요":f2(r.c70)}</td><td>${V(r.conv)}</td><td>${kindB(r)}${/추정/.test(r.kind||"")?` <span class="bd w">추정</span>`:""}</td><td>${V(r.base2)}</td><td>${V(r.src)}<br>${V(r.date)}</td></tr>`).join("")}</tbody></table></div><p class="meta">구분 · 공식 공개 / 대학 환산 / 추정 참고값 / 미확인. 추정값은 입력자가 출처와 함께 추정으로 표시한 경우에만 노출.</p>`;
+ const dm=dgroup(rows),dn=Object.keys(dm),sd=dn.includes(TRD)?TRD:(dn.find(x=>pf().dp.some(p2=>dmatch({dept:x},p2)))||dn[0]);
+ if(dn.length){const ser=dm[sd].filter(r=>cutOf(r)!=null).sort((a,b)=>yrNum(a.year)-yrNum(b.year)).slice(-3);
+  h+=`<h2>최근 3개년 입결 변화</h2><div class="bar"><label>모집단위 <select data-trd>${dn.map(x=>`<option ${x===sd?"selected":""}>${esc(x)}</option>`).join("")}</select></label></div>`;
+  h+=ser.length>=2?`<div class="cmpw">${LC(ser.map(r=>({v:cutOf(r),y:r.year})),sc==="5"?5:9)}</div><p class="meta">${ser.every(r=>r.c70!=null)?"70%컷":"입력된 70%컷 또는 평균"} 기준 · 위쪽이 더 좋은 등급 · 학년도별 모집 규모와 전형이 달라질 수 있음</p>`:`<div class="notice">변화 비교 불가 · 같은 모집단위의 2개 학년도 이상 입결 필요.</div>`;
+  const lt=dn.map(d=>latest(dm[d])).filter(r=>cutOf(r)!=null).sort((a,b)=>cutOf(a)-cutOf(b)),mx=sc==="5"?5:9;
+  if(lt.length)h+=`<h2>학과별 입결 비교 <i>최근 학년도</i></h2><div class="box">${lt.map(r=>`<div style="padding:8px 0;border-bottom:1px solid var(--line)"><span>${esc(r.dept)} <span class="meta">${esc(r.year)} · ${r.c70!=null?"70%컷":"평균"} ${f2(cutOf(r))}</span></span><div class="pgb" style="margin-top:4px"><i style="width:${Math.max(4,(mx-cutOf(r))/(mx-1)*100)}%"></i></div></div>`).join("")}<p class="meta" style="padding-top:8px">막대가 길수록 더 좋은 등급. 학과마다 입결 차이가 큼.</p></div>`}
+ return h}
+function uprof(e){const u=udAll()[e.n]||{},has=k=>u[k]&&String(u[k]).trim(),miss=UF.filter(x=>!has(x[0])).map(x=>x[1]);
+ const lk=(k,t,q)=>ext(/^https?:\/\//.test(u[k]||"")?u[k]:gs(e.n+" "+q),/^https?:\/\//.test(u[k]||"")?t:t.replace("공식 ","")+" 검색");
+ const img=/^(https:\/\/|images\/)/.test(u.image||"")?`<img src="${esc(u.image)}" alt="${esc(e.n)} 대표 이미지" loading="lazy" referrerpolicy="no-referrer" style="width:100%;max-height:300px;object-fit:cover;border-radius:4px;margin:10px 0" onerror="this.remove()">`:"";
+ return `<h2>대학 대표 정보 <i>입력된 공식 자료 기준</i></h2><div>${lk("home","공식 홈페이지","공식 홈페이지")}${lk("admsite","공식 입학처","입학처")}${ext(e.u,"대학알리미")}</div>${img}
+ <p class="meta">${u.src?`출처 ${/^https?:\/\//.test(u.src)?`<a href="${esc(u.src)}" target="_blank" rel="noopener noreferrer">${esc(u.src)}</a>`:esc(u.src)} · 확인일 ${esc(u.date||"확인 필요")}`:"출처 미입력 · 공식 자료 확인 필요"} · AI 해석은 제공하지 않음</p>
+ ${u.slogan?`<div class="box"><p class="lab" style="margin-top:8px">공식 슬로건</p><p style="font-size:18px;font-weight:500;color:var(--n)">${esc(u.slogan)}</p></div>`:`<div class="notice">공식 슬로건 · 공식 자료 확인 필요</div>`}
+ ${(u.talent||[]).length?`<p class="lab" style="margin-top:16px">공식 인재상</p><div class="box">${u.talent.map(t=>`<div style="padding:10px 0;border-bottom:1px solid var(--line)"><b>${esc(t.name)}</b>${t.desc?`<br>${esc(t.desc)}`:""}${(t.kw||[]).length?`<br><span class="kw">${t.kw.map(k=>`<span>#${esc(k)}</span>`).join("")}</span>`:""}</div>`).join("")}</div>`:`<div class="notice">공식 인재상 · 공식 자료 확인 필요</div>`}
+ ${UF.filter(x=>has(x[0])).length?`<dl class="gl">${UF.filter(x=>has(x[0])).map(x=>`<dt>${x[1]}</dt><dd>${esc(u[x[0]])}</dd>`).join("")}</dl>`:""}
+ ${miss.length?`<p class="meta" style="margin-top:12px">미입력 항목 · ${miss.join(", ")} → 공식 자료 확인 필요 · <a href="#/data">데이터 관리</a>에서 입력</p>`:""}`}
+const uadm=e=>utabs(e);
+const ulogo=e=>{const l=logoSrc(e.n),u=udAll()[e.n]||{};return l?`<img class="lg" src="${esc(l)}" alt="${esc(e.n)} 공식 로고" referrerpolicy="no-referrer" onerror="this.remove()"><p class="meta">로고 출처 ${esc(u.src||"확인 필요")}</p>`:""};
+function dataPage2(){const A=adm(),U=udAll(),sel_=UDSEL||UN[0][0],u=U[sel_]||{},tn=TFN||UN[0][0],tt=TFT,tr=((U[tn]||{}).tr||{})[tt]||{},fl=tt==="교과"?TFC:TFJ;
+ const tl=(u.talent||[]).map(t=>`${t.name} | ${(t.kw||[]).join(",")} | ${t.desc||""}`).join("\n"),uo=UN.map(x=>x[0]);
+ const opt=(a,c)=>a.map(x=>`<option ${x===c?"selected":""}>${esc(x)}</option>`).join("");
+ return `<h1 style="margin-top:36px">데이터 관리</h1>${MSG?`<div class="warn">${esc(MSG).replace(/\n/g,"<br>")}</div>`:""}<p class="meta">입력한 데이터는 이 기기의 브라우저에만 저장됨. 학교 전체에 배포하려면 맨 아래 백업(JSON)을 내보내 파일의 SEED 값에 넣어 배포. 자동 수집은 하지 않으며 공식 공개 자료를 확인해 직접 입력. 확인되지 않은 값은 비워 두기.</p>
+ <h2>① 입결 <i>${A.length}건</i></h2><p class="meta">열 순서(탭 구분 권장, 엑셀 붙여넣기)<br>학년도, 대학, 학과, 전형(학생부교과/학생부종합), 모집인원, 경쟁률, 충원순위, 등급제(5/9), 50%컷, 70%컷, 최종등록자평균, 반영기준(전교과·국영수사과), 수능최저, 면접, 지원자격, 제출서류, 출처, 확인일(YYYY-MM-DD), 지표기준(예: 최종등록자 기준), 구분(공식 공개/대학 환산/추정), 환산점수<br>학년도·대학·학과·전형·등급제·출처·확인일은 필수. 5등급제와 9등급제는 별도 행으로 입력. 공식 자료에 없는 값은 비우기.</p>
+ <label class="fl"><span>붙여넣기</span><textarea id="adm_txt"></textarea></label><div><button class="btn" data-impadm="add">추가</button><button class="btn s" data-impadm="replace">전체 대체</button><button class="btn s" data-copytpl>양식 복사</button><button class="btn s" data-sample>가상 예시 불러오기</button><button class="btn s" data-clradm>입결 전체 삭제</button></div>
+ <h2>② 대학 로고 일괄 등록</h2><p class="meta">한 줄에 하나: 대학명 [탭] 로고 주소. 주소는 공식 홈페이지·브랜드 자료에서 확인한 https 주소 또는 배포 폴더의 logos/파일명. 사용 허락 범위는 대학 안내를 확인. 대학 이름은 목록과 정확히 일치해야 함.</p><label class="fl"><span>대학명 [탭] 주소</span><textarea id="logo_txt" placeholder="서울대학교\thttps://..."></textarea></label><div><button class="btn" data-implogo>등록</button></div>
+ <h2>③ 대학 프로필 <i>공식 자료 기준</i></h2><label class="fl"><span>대학</span><select id="ud_n">${opt(uo,sel_)}</select></label>
+ <div class="fg" style="grid-template-columns:1fr">${[["slogan","공식 슬로건","input"]].map(x=>`<label class="fl"><span>${x[1]}</span><input id="ud_${x[0]}" value="${esc(u[x[0]]||"")}"></label>`).join("")}<label class="fl"><span>공식 인재상 (한 줄에 하나: 이름 | 키워드,키워드 | 설명)</span><textarea id="ud_talent">${esc(tl)}</textarea></label>${UF.map(x=>`<label class="fl"><span>${x[1]}</span><textarea id="ud_${x[0]}">${esc(u[x[0]]||"")}</textarea></label>`).join("")}${[["logo","공식 로고 주소(https 또는 logos/파일)"],["image","대표 이미지 주소(https 또는 images/파일)"],["home","공식 홈페이지 주소"],["admsite","공식 입학처 주소"],["src","출처 주소"],["date","확인일(YYYY-MM-DD)"]].map(x=>`<label class="fl"><span>${x[1]}</span><input id="ud_${x[0]}" value="${esc(u[x[0]]||"")}"></label>`).join("")}</div>
+ <div><button class="btn" data-saveud2>저장</button><button class="btn s" data-clrud>이 대학 프로필 삭제</button></div>
+ <h2>④ 전형 요강 <i>대학·전형별</i></h2><div class="fg"><label class="fl"><span>대학</span><select id="tf_n">${opt(uo,tn)}</select></label><label class="fl"><span>전형</span><select id="tf_t">${opt(["교과","종합"],tt)}</select></label></div>
+ <div class="fg" style="grid-template-columns:1fr">${fl.map(x=>`<label class="fl"><span>${x[1]}</span><textarea id="tf_${x[0]}" style="min-height:56px">${esc(tr[x[0]]||"")}</textarea></label>`).join("")}<label class="fl"><span>출처 주소</span><input id="tf_src" value="${esc(tr.src||"")}"></label><label class="fl"><span>확인일(YYYY-MM-DD)</span><input id="tf_date" value="${esc(tr.date||"")}"></label></div>
+ <div><button class="btn" data-savetf>저장</button></div>
+ <h2>⑤ 백업 · 배포</h2><label class="fl"><span>JSON</span><textarea id="bk"></textarea></label><div><button class="btn s" data-exp>내보내기</button><button class="btn s" data-imp>가져오기</button></div>`}
+document.addEventListener("click",e=>{const t=e.target;
+ const ut=t.closest("[data-ut]");if(ut){UT=ut.dataset.ut;KEEP=true;route();return}
+ const us=t.closest("[data-us]");if(us){US=us.dataset.us;KEEP=true;route();return}
+ if(t.closest("[data-drgo]")){const v=$("#dr_in").value.trim();if(v)location.hash="#/dr/"+enc(v);return}
+ if(t.closest("[data-ffreset]")){FF={};KEEP=true;route();return}
+ if(t.closest("[data-saveud2]")){const n=$("#ud_n").value,all={...udAll()},old=all[n]||{},o={tr:old.tr||{}};
+  ["slogan","logo","image","home","admsite","src","date",...UF.map(x=>x[0])].forEach(k=>{o[k]=$("#ud_"+k).value.trim()});
+  o.talent=$("#ud_talent").value.split(/\n/).map(l=>l.trim()).filter(Boolean).map(l=>{const c=l.split("|").map(x=>x.trim());return{name:c[0],kw:(c[1]||"").split(",").map(x=>x.trim()).filter(Boolean),desc:c[2]||""}});
+  const bad=["logo","image"].find(k=>o[k]&&!/^(https:\/\/|logos\/|images\/)/.test(o[k]));if(bad){MSG=(bad==="logo"?"로고":"이미지")+" 주소는 https 또는 배포 폴더 경로(logos/, images/)여야 함";KEEP=true;route();return}
+  all[n]=o;ls.set("ud",all);UDSEL=n;MSG=n+" 프로필 저장됨. 출처와 확인일 기재 권장.";KEEP=true;route();return}
+ if(t.closest("[data-savetf]")){const n=$("#tf_n").value,tt=$("#tf_t").value,all={...udAll()},u={...(all[n]||{})},tr={...(u.tr||{})},o={};
+  (tt==="교과"?TFC:TFJ).forEach(x=>{o[x[0]]=$("#tf_"+x[0]).value.trim()});o.src=$("#tf_src").value.trim();o.date=$("#tf_date").value.trim();tr[tt]=o;u.tr=tr;all[n]=u;ls.set("ud",all);TFN=n;TFT=tt;MSG=n+" "+tt+"전형 요강 저장됨";KEEP=true;route();return}
+ if(t.closest("[data-implogo]")){const all={...udAll()},ok=[],er=[];$("#logo_txt").value.split(/\n/).map(l=>l.trim()).filter(Boolean).forEach(l=>{const c=l.split(/\t|\s{2,}/).map(x=>x.trim()),n=c[0],u=c[1]||"";if(!UN.some(x=>x[0]===n))er.push(n+": 대학 목록에 없음");else if(!/^(https:\/\/|logos\/)/.test(u))er.push(n+": 주소 형식 오류");else{all[n]={...(all[n]||{}),logo:u};ok.push(n)}});
+  ls.set("ud",all);MSG=`${ok.length}곳 등록.${er.length?"\n제외:\n"+er.slice(0,10).join("\n"):""}`;KEEP=true;route();return}});
+document.addEventListener("change",e=>{const t=e.target;
+ if(t.dataset.ff!==undefined){FF[t.dataset.ff]=t.value;KEEP=true;route();return}
+ if(t.dataset.trd!==undefined){TRD=t.value;KEEP=true;route();return}
+ if(t.id==="g_d"){GD=t.value;KEEP=true;route();return}if(t.id==="g_s"){GS=t.value;KEEP=true;route();return}
+ if(t.id==="tf_n"){TFN=t.value;KEEP=true;route();return}if(t.id==="tf_t"){TFT=t.value;KEEP=true;route()}});
+
+function dataPage(){return dataPage2()}
+route();
+</script>
+</body>
+</html>
